@@ -43,6 +43,12 @@ pnpm dev -- --host 0.0.0.0
 
 The runtime database is PostgreSQL with Redis; SQLite is not used as the application database. The development login page provides one-click demo credentials.
 
+## Integration documentation
+
+- [AI-friendly integration guide](docs/integration-development-guide.md)
+- [Chinese integration guide](docs/对接开发指南.md)
+- [MIT License](LICENSE)
+
 ## Project conventions
 
 ```text
@@ -86,4 +92,4 @@ pnpm build
 
 ## License
 
-License and contribution guidelines will be added before the first public release.
+This project uses the [MIT License](LICENSE). You may copy, modify, use commercially, and remove or replace the admin branding, while retaining the license and copyright notice.

@@ -43,6 +43,12 @@ pnpm dev -- --host 0.0.0.0
 
 使用项目配置的 PostgreSQL 和 Redis，不使用 SQLite 作为运行数据库。开发环境演示账号可在登录页一键填充。
 
+## 对接开发文档
+
+- [AI 友好对接开发指南](docs/对接开发指南.md)
+- [English integration guide](docs/integration-development-guide.md)
+- [MIT License](LICENSE)
+
 ## 目录约定
 
 ```text
@@ -86,4 +92,4 @@ pnpm build
 
 ## License
 
-项目许可证和贡献规则将在正式发布前补充。
+本项目采用 [MIT License](LICENSE)。允许复制、修改、商用以及移除或替换后台品牌标识，但必须保留许可证和版权声明。
