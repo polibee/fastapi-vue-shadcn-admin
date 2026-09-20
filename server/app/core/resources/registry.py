@@ -9,7 +9,7 @@ class ResourceNotFoundError(LookupError):
     pass
 
 
-RESOURCE_MANIFEST_CACHE_KEY = "admin:resource-manifests:v2"
+RESOURCE_MANIFEST_CACHE_KEY = "admin:resource-manifests:v3"
 
 
 def get_resource_manifest(name: str) -> dict[str, Any]:
@@ -30,3 +30,4 @@ async def list_resource_manifests_cached() -> list[dict[str, Any]]:
     manifests = list_resource_manifests()
     await set_json(RESOURCE_MANIFEST_CACHE_KEY, manifests, ttl_seconds=300)
     return manifests
+

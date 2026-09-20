@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n'
 
 export type SupportedLocale = 'zh-CN' | 'en'
-export type LocaleNamespace = 'common' | 'shell' | 'auth' | 'dashboard' | 'placeholder' | 'users' | 'roles' | 'audit' | 'tasks' | 'settings' | 'introspection' | 'generator' | 'modules' | 'openapi' | 'permissions'
+export type LocaleNamespace = 'common' | 'shell' | 'auth' | 'dashboard' | 'placeholder' | 'users' | 'roles' | 'audit' | 'tasks' | 'settings' | 'introspection' | 'generator' | 'modules' | 'openapi' | 'permissions' | 'departments'
 
 const localeLoaders = import.meta.glob<Record<string, unknown>>('./**/*.json')
 
@@ -31,3 +31,4 @@ export function localeFromStorage(): SupportedLocale {
   const saved = typeof window === 'undefined' ? null : window.localStorage.getItem('admin-locale')
   return saved === 'en' || saved === 'zh-CN' ? saved : 'zh-CN'
 }
+

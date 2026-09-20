@@ -1,0 +1,31 @@
+{
+  "departments": {
+    "label": "部门",
+    "labelPlural": "部门管理",
+    "title": "部门管理",
+    "description": "管理可复用的组织部门。",
+    "refresh": "刷新",
+    "create": "新建部门",
+    "edit": "编辑部门",
+    "save": "保存",
+    "saving": "保存中…",
+    "cancel": "取消",
+    "name": "名称",
+    "code": "编码",
+    "descriptionField": "描述",
+    "status": "状态",
+    "allStatuses": "全部状态",
+    "active": "启用",
+    "inactive": "停用",
+    "search": "搜索",
+    "searchPlaceholder": "搜索名称或编码",
+    "empty": "暂无部门",
+    "page": "第 {page} 页，共 {pages} 页",
+    "deleteConfirm": "确定删除部门 {name}？",
+    "bulkDeleteConfirm": "确定删除选中的 {count} 个部门？",
+    "nameRequired": "请输入名称。",
+    "codeRequired": "请输入编码。",
+    "createFailed": "创建部门失败。",
+    "updateFailed": "更新部门失败。"
+  }
+}

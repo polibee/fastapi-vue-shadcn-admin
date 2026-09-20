@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { BulkDeleteRolesApiV1RolesBulkDeletePostData, BulkDeleteRolesApiV1RolesBulkDeletePostErrors, BulkDeleteRolesApiV1RolesBulkDeletePostResponses, BulkDeleteUsersApiV1UsersBulkDeletePostData, BulkDeleteUsersApiV1UsersBulkDeletePostErrors, BulkDeleteUsersApiV1UsersBulkDeletePostResponses, CancelTaskApiV1TasksTaskIdCancelPostData, CancelTaskApiV1TasksTaskIdCancelPostErrors, CancelTaskApiV1TasksTaskIdCancelPostResponses, CreateRoleApiV1RolesPostData, CreateRoleApiV1RolesPostErrors, CreateRoleApiV1RolesPostResponses, CreateTaskApiV1TasksPostData, CreateTaskApiV1TasksPostErrors, CreateTaskApiV1TasksPostResponses, CreateUserApiV1UsersPostData, CreateUserApiV1UsersPostErrors, CreateUserApiV1UsersPostResponses, CurrentUserApiV1AuthMeGetData, CurrentUserApiV1AuthMeGetResponses, DeleteRoleApiV1RolesRoleIdDeleteData, DeleteRoleApiV1RolesRoleIdDeleteErrors, DeleteRoleApiV1RolesRoleIdDeleteResponses, DeleteUserApiV1UsersUserIdDeleteData, DeleteUserApiV1UsersUserIdDeleteErrors, DeleteUserApiV1UsersUserIdDeleteResponses, GetResourceApiV1AdminResourcesNameGetData, GetResourceApiV1AdminResourcesNameGetErrors, GetResourceApiV1AdminResourcesNameGetResponses, HealthApiV1HealthGetData, HealthApiV1HealthGetResponses, ListAuditLogsApiV1AuditLogsGetData, ListAuditLogsApiV1AuditLogsGetErrors, ListAuditLogsApiV1AuditLogsGetResponses, ListPermissionsApiV1PermissionsGetData, ListPermissionsApiV1PermissionsGetResponses, ListResourcesApiV1AdminResourcesGetData, ListResourcesApiV1AdminResourcesGetResponses, ListRolesApiV1RolesGetData, ListRolesApiV1RolesGetErrors, ListRolesApiV1RolesGetResponses, ListTaskEventsApiV1TasksTaskIdEventsGetData, ListTaskEventsApiV1TasksTaskIdEventsGetErrors, ListTaskEventsApiV1TasksTaskIdEventsGetResponses, ListTasksApiV1TasksGetData, ListTasksApiV1TasksGetErrors, ListTasksApiV1TasksGetResponses, ListUsersApiV1UsersGetData, ListUsersApiV1UsersGetErrors, ListUsersApiV1UsersGetResponses, LoginApiV1AuthLoginPostData, LoginApiV1AuthLoginPostErrors, LoginApiV1AuthLoginPostResponses, ReadCrudGenerationPlanApiV1AdminGeneratorPlansResourceGetData, ReadCrudGenerationPlanApiV1AdminGeneratorPlansResourceGetErrors, ReadCrudGenerationPlanApiV1AdminGeneratorPlansResourceGetResponses, ReadDatabaseCompatibilityApiV1AdminIntrospectionCompatibilityGetData, ReadDatabaseCompatibilityApiV1AdminIntrospectionCompatibilityGetResponses, ReadDatabaseIntrospectionApiV1AdminIntrospectionGetData, ReadDatabaseIntrospectionApiV1AdminIntrospectionGetResponses, ReadSettingsApiV1SettingsGetData, ReadSettingsApiV1SettingsGetResponses, RefreshApiV1AuthRefreshPostData, RefreshApiV1AuthRefreshPostErrors, RefreshApiV1AuthRefreshPostResponses, RetryTaskApiV1TasksTaskIdRetryPostData, RetryTaskApiV1TasksTaskIdRetryPostErrors, RetryTaskApiV1TasksTaskIdRetryPostResponses, RevokeApiV1AuthRevokePostData, RevokeApiV1AuthRevokePostErrors, RevokeApiV1AuthRevokePostResponses, UpdateRoleDataScopeApiV1RolesRoleIdDataScopePutData, UpdateRoleDataScopeApiV1RolesRoleIdDataScopePutErrors, UpdateRoleDataScopeApiV1RolesRoleIdDataScopePutResponses, UpdateRolePermissionsApiV1RolesRoleIdPermissionsPutData, UpdateRolePermissionsApiV1RolesRoleIdPermissionsPutErrors, UpdateRolePermissionsApiV1RolesRoleIdPermissionsPutResponses, UpdateUserRolesApiV1UsersUserIdRolesPutData, UpdateUserRolesApiV1UsersUserIdRolesPutErrors, UpdateUserRolesApiV1UsersUserIdRolesPutResponses } from './types.gen';
+import type { BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostData, BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostErrors, BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponses, BulkDeleteRolesApiV1RolesBulkDeletePostData, BulkDeleteRolesApiV1RolesBulkDeletePostErrors, BulkDeleteRolesApiV1RolesBulkDeletePostResponses, BulkDeleteUsersApiV1UsersBulkDeletePostData, BulkDeleteUsersApiV1UsersBulkDeletePostErrors, BulkDeleteUsersApiV1UsersBulkDeletePostResponses, CancelTaskApiV1TasksTaskIdCancelPostData, CancelTaskApiV1TasksTaskIdCancelPostErrors, CancelTaskApiV1TasksTaskIdCancelPostResponses, CreateDepartmentApiV1DepartmentsPostData, CreateDepartmentApiV1DepartmentsPostErrors, CreateDepartmentApiV1DepartmentsPostResponses, CreateRoleApiV1RolesPostData, CreateRoleApiV1RolesPostErrors, CreateRoleApiV1RolesPostResponses, CreateTaskApiV1TasksPostData, CreateTaskApiV1TasksPostErrors, CreateTaskApiV1TasksPostResponses, CreateUserApiV1UsersPostData, CreateUserApiV1UsersPostErrors, CreateUserApiV1UsersPostResponses, CurrentUserApiV1AuthMeGetData, CurrentUserApiV1AuthMeGetResponses, DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteData, DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteErrors, DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses, DeleteRoleApiV1RolesRoleIdDeleteData, DeleteRoleApiV1RolesRoleIdDeleteErrors, DeleteRoleApiV1RolesRoleIdDeleteResponses, DeleteUserApiV1UsersUserIdDeleteData, DeleteUserApiV1UsersUserIdDeleteErrors, DeleteUserApiV1UsersUserIdDeleteResponses, GetResourceApiV1AdminResourcesNameGetData, GetResourceApiV1AdminResourcesNameGetErrors, GetResourceApiV1AdminResourcesNameGetResponses, HealthApiV1HealthGetData, HealthApiV1HealthGetResponses, ListAuditLogsApiV1AuditLogsGetData, ListAuditLogsApiV1AuditLogsGetErrors, ListAuditLogsApiV1AuditLogsGetResponses, ListDepartmentsApiV1DepartmentsGetData, ListDepartmentsApiV1DepartmentsGetErrors, ListDepartmentsApiV1DepartmentsGetResponses, ListPermissionsApiV1PermissionsGetData, ListPermissionsApiV1PermissionsGetResponses, ListResourcesApiV1AdminResourcesGetData, ListResourcesApiV1AdminResourcesGetResponses, ListRolesApiV1RolesGetData, ListRolesApiV1RolesGetErrors, ListRolesApiV1RolesGetResponses, ListTaskEventsApiV1TasksTaskIdEventsGetData, ListTaskEventsApiV1TasksTaskIdEventsGetErrors, ListTaskEventsApiV1TasksTaskIdEventsGetResponses, ListTasksApiV1TasksGetData, ListTasksApiV1TasksGetErrors, ListTasksApiV1TasksGetResponses, ListUsersApiV1UsersGetData, ListUsersApiV1UsersGetErrors, ListUsersApiV1UsersGetResponses, LoginApiV1AuthLoginPostData, LoginApiV1AuthLoginPostErrors, LoginApiV1AuthLoginPostResponses, ReadCrudGenerationPlanApiV1AdminGeneratorPlansResourceGetData, ReadCrudGenerationPlanApiV1AdminGeneratorPlansResourceGetErrors, ReadCrudGenerationPlanApiV1AdminGeneratorPlansResourceGetResponses, ReadDatabaseCompatibilityApiV1AdminIntrospectionCompatibilityGetData, ReadDatabaseCompatibilityApiV1AdminIntrospectionCompatibilityGetResponses, ReadDatabaseIntrospectionApiV1AdminIntrospectionGetData, ReadDatabaseIntrospectionApiV1AdminIntrospectionGetResponses, ReadSettingsApiV1SettingsGetData, ReadSettingsApiV1SettingsGetResponses, RefreshApiV1AuthRefreshPostData, RefreshApiV1AuthRefreshPostErrors, RefreshApiV1AuthRefreshPostResponses, RetryTaskApiV1TasksTaskIdRetryPostData, RetryTaskApiV1TasksTaskIdRetryPostErrors, RetryTaskApiV1TasksTaskIdRetryPostResponses, RevokeApiV1AuthRevokePostData, RevokeApiV1AuthRevokePostErrors, RevokeApiV1AuthRevokePostResponses, UpdateDepartmentApiV1DepartmentsDepartmentIdPutData, UpdateDepartmentApiV1DepartmentsDepartmentIdPutErrors, UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponses, UpdateRoleDataScopeApiV1RolesRoleIdDataScopePutData, UpdateRoleDataScopeApiV1RolesRoleIdDataScopePutErrors, UpdateRoleDataScopeApiV1RolesRoleIdDataScopePutResponses, UpdateRolePermissionsApiV1RolesRoleIdPermissionsPutData, UpdateRolePermissionsApiV1RolesRoleIdPermissionsPutErrors, UpdateRolePermissionsApiV1RolesRoleIdPermissionsPutResponses, UpdateUserRolesApiV1UsersUserIdRolesPutData, UpdateUserRolesApiV1UsersUserIdRolesPutErrors, UpdateUserRolesApiV1UsersUserIdRolesPutResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -260,6 +260,63 @@ export const listPermissionsApiV1PermissionsGet = <ThrowOnError extends boolean 
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/permissions',
     ...options
+});
+
+/**
+ * List Departments
+ */
+export const listDepartmentsApiV1DepartmentsGet = <ThrowOnError extends boolean = false>(options?: Options<ListDepartmentsApiV1DepartmentsGetData, ThrowOnError>): RequestResult<ListDepartmentsApiV1DepartmentsGetResponses, ListDepartmentsApiV1DepartmentsGetErrors, ThrowOnError> => (options?.client ?? client).get<ListDepartmentsApiV1DepartmentsGetResponses, ListDepartmentsApiV1DepartmentsGetErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/departments',
+    ...options
+});
+
+/**
+ * Create Department
+ */
+export const createDepartmentApiV1DepartmentsPost = <ThrowOnError extends boolean = false>(options: Options<CreateDepartmentApiV1DepartmentsPostData, ThrowOnError>): RequestResult<CreateDepartmentApiV1DepartmentsPostResponses, CreateDepartmentApiV1DepartmentsPostErrors, ThrowOnError> => (options.client ?? client).post<CreateDepartmentApiV1DepartmentsPostResponses, CreateDepartmentApiV1DepartmentsPostErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/departments',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete Department
+ */
+export const deleteDepartmentApiV1DepartmentsDepartmentIdDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteData, ThrowOnError>): RequestResult<DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses, DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteErrors, ThrowOnError> => (options.client ?? client).delete<DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses, DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/departments/{department_id}',
+    ...options
+});
+
+/**
+ * Update Department
+ */
+export const updateDepartmentApiV1DepartmentsDepartmentIdPut = <ThrowOnError extends boolean = false>(options: Options<UpdateDepartmentApiV1DepartmentsDepartmentIdPutData, ThrowOnError>): RequestResult<UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponses, UpdateDepartmentApiV1DepartmentsDepartmentIdPutErrors, ThrowOnError> => (options.client ?? client).put<UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponses, UpdateDepartmentApiV1DepartmentsDepartmentIdPutErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/departments/{department_id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Bulk Delete Departments
+ */
+export const bulkDeleteDepartmentsApiV1DepartmentsBulkDeletePost = <ThrowOnError extends boolean = false>(options: Options<BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostData, ThrowOnError>): RequestResult<BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponses, BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostErrors, ThrowOnError> => (options.client ?? client).post<BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponses, BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/departments/bulk-delete',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 /**

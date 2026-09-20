@@ -87,6 +87,122 @@ export type CurrentUserRead = {
 };
 
 /**
+ * DepartmentBulkDelete
+ */
+export type DepartmentBulkDelete = {
+    /**
+     * Ids
+     */
+    ids: Array<number>;
+};
+
+/**
+ * DepartmentBulkDeleteResponse
+ */
+export type DepartmentBulkDeleteResponse = {
+    /**
+     * Deleted Ids
+     */
+    deleted_ids: Array<number>;
+};
+
+/**
+ * DepartmentCreate
+ */
+export type DepartmentCreate = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Code
+     */
+    code: string;
+    /**
+     * Description
+     */
+    description?: string | null;
+    /**
+     * Is Active
+     */
+    is_active?: boolean;
+};
+
+/**
+ * DepartmentListResponse
+ */
+export type DepartmentListResponse = {
+    /**
+     * Items
+     */
+    items: Array<DepartmentRead>;
+    /**
+     * Total
+     */
+    total: number;
+    /**
+     * Offset
+     */
+    offset: number;
+    /**
+     * Limit
+     */
+    limit: number;
+};
+
+/**
+ * DepartmentRead
+ */
+export type DepartmentRead = {
+    /**
+     * Id
+     */
+    id: number;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Code
+     */
+    code: string;
+    /**
+     * Description
+     */
+    description: string | null;
+    /**
+     * Is Active
+     */
+    is_active: boolean;
+    /**
+     * Created At
+     */
+    created_at: string;
+};
+
+/**
+ * DepartmentUpdate
+ */
+export type DepartmentUpdate = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Code
+     */
+    code: string;
+    /**
+     * Description
+     */
+    description?: string | null;
+    /**
+     * Is Active
+     */
+    is_active?: boolean;
+};
+
+/**
  * DependencyStatus
  */
 export type DependencyStatus = {
@@ -1332,6 +1448,166 @@ export type ListPermissionsApiV1PermissionsGetResponses = {
 };
 
 export type ListPermissionsApiV1PermissionsGetResponse = ListPermissionsApiV1PermissionsGetResponses[keyof ListPermissionsApiV1PermissionsGetResponses];
+
+export type ListDepartmentsApiV1DepartmentsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Offset
+         */
+        offset?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Search
+         */
+        search?: string | null;
+        /**
+         * Is Active
+         */
+        is_active?: boolean | null;
+        /**
+         * Sort By
+         */
+        sort_by?: string;
+        /**
+         * Sort Order
+         */
+        sort_order?: string;
+    };
+    url: '/api/v1/departments';
+};
+
+export type ListDepartmentsApiV1DepartmentsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListDepartmentsApiV1DepartmentsGetError = ListDepartmentsApiV1DepartmentsGetErrors[keyof ListDepartmentsApiV1DepartmentsGetErrors];
+
+export type ListDepartmentsApiV1DepartmentsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DepartmentListResponse;
+};
+
+export type ListDepartmentsApiV1DepartmentsGetResponse = ListDepartmentsApiV1DepartmentsGetResponses[keyof ListDepartmentsApiV1DepartmentsGetResponses];
+
+export type CreateDepartmentApiV1DepartmentsPostData = {
+    body: DepartmentCreate;
+    path?: never;
+    query?: never;
+    url: '/api/v1/departments';
+};
+
+export type CreateDepartmentApiV1DepartmentsPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateDepartmentApiV1DepartmentsPostError = CreateDepartmentApiV1DepartmentsPostErrors[keyof CreateDepartmentApiV1DepartmentsPostErrors];
+
+export type CreateDepartmentApiV1DepartmentsPostResponses = {
+    /**
+     * Successful Response
+     */
+    201: DepartmentRead;
+};
+
+export type CreateDepartmentApiV1DepartmentsPostResponse = CreateDepartmentApiV1DepartmentsPostResponses[keyof CreateDepartmentApiV1DepartmentsPostResponses];
+
+export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteData = {
+    body?: never;
+    path: {
+        /**
+         * Department Id
+         */
+        department_id: number;
+    };
+    query?: never;
+    url: '/api/v1/departments/{department_id}';
+};
+
+export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteError = DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteErrors[keyof DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteErrors];
+
+export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    204: void;
+};
+
+export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponse = DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses[keyof DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses];
+
+export type UpdateDepartmentApiV1DepartmentsDepartmentIdPutData = {
+    body: DepartmentUpdate;
+    path: {
+        /**
+         * Department Id
+         */
+        department_id: number;
+    };
+    query?: never;
+    url: '/api/v1/departments/{department_id}';
+};
+
+export type UpdateDepartmentApiV1DepartmentsDepartmentIdPutErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateDepartmentApiV1DepartmentsDepartmentIdPutError = UpdateDepartmentApiV1DepartmentsDepartmentIdPutErrors[keyof UpdateDepartmentApiV1DepartmentsDepartmentIdPutErrors];
+
+export type UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: DepartmentRead;
+};
+
+export type UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponse = UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponses[keyof UpdateDepartmentApiV1DepartmentsDepartmentIdPutResponses];
+
+export type BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostData = {
+    body: DepartmentBulkDelete;
+    path?: never;
+    query?: never;
+    url: '/api/v1/departments/bulk-delete';
+};
+
+export type BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostError = BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostErrors[keyof BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostErrors];
+
+export type BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: DepartmentBulkDeleteResponse;
+};
+
+export type BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponse = BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponses[keyof BulkDeleteDepartmentsApiV1DepartmentsBulkDeletePostResponses];
 
 export type ListResourcesApiV1AdminResourcesGetData = {
     body?: never;

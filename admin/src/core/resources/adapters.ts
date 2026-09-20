@@ -5,6 +5,7 @@ export type ResourceListOptions = { offset?: number; limit?: number; search?: st
 export type ResourceAdapter<T, TCreate> = {
   list: (options?: ResourceListOptions) => Promise<{ items: T[]; total: number }>
   create: (input: TCreate) => Promise<T>
+  update?: (id: number, input: TCreate) => Promise<T>
   remove: (id: number) => Promise<void>
   bulkRemove: (ids: number[]) => Promise<number[]>
 }
@@ -40,3 +41,14 @@ resourceAdapterRegistry.register<RoleRead, { name: string; description: string }
 })
 
 export type RegisteredResourceResponse = UserListResponse | RoleListResponse
+
+
+
+import { fetchDepartments, createDepartment, updateDepartment, deleteDepartment, bulkDeleteDepartments } from '@/core/api/resources'
+resourceAdapterRegistry.register('departments', {
+  list: fetchDepartments,
+  create: createDepartment,
+  update: updateDepartment,
+  remove: deleteDepartment,
+  bulkRemove: bulkDeleteDepartments,
+})

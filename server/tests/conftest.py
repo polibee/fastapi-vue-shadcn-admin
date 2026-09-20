@@ -7,6 +7,7 @@ from server.app.modules.audit.model import AuditLog
 from server.app.modules.tasks.model import Task
 from server.app.modules.roles.model import Permission, Role
 from server.app.modules.users.model import User
+from server.app.modules.departments.model import Department
 
 
 @pytest_asyncio.fixture
@@ -38,9 +39,15 @@ async def admin_headers(session):
             Permission(code="tasks.create"),
             Permission(code="tasks.cancel"),
             Permission(code="tasks.retry"),
+            Permission(code="departments.view"),
+            Permission(code="departments.create"),
+            Permission(code="departments.update"),
+            Permission(code="departments.delete"),
         ],
     )
     user = User(username="test-admin", email="test-admin@example.test", password_hash=hash_password("secret"), roles=[role])
     session.add(user)
     await session.flush()
     return {"Authorization": f"Bearer {create_access_token(str(user.id))}"}
+
+

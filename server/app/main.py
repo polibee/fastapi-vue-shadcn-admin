@@ -22,6 +22,7 @@ from server.app.modules.auth.router import router as auth_router
 from server.app.modules.audit.router import router as audit_router
 from server.app.modules.tasks.router import router as tasks_router
 from server.app.modules.permissions.router import router as permissions_router
+from server.app.modules.departments.router import router as departments_router
 from server.app.core.resources.router import router as resources_router
 from server.app.core.settings.router import router as settings_router
 from server.app.core.introspection_router import router as introspection_router
@@ -64,6 +65,7 @@ app.include_router(auth_router)
 app.include_router(audit_router)
 app.include_router(tasks_router)
 app.include_router(permissions_router)
+app.include_router(departments_router)
 app.include_router(resources_router)
 app.include_router(settings_router)
 app.include_router(introspection_router)
@@ -95,3 +97,5 @@ if settings.api_docs_enabled:
     @app.get("/docs/scalar", include_in_schema=False)
     async def scalar_docs():
         return get_scalar_api_reference(openapi_url=app.openapi_url, title=app.title)
+
+

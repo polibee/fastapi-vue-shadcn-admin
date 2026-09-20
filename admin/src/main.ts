@@ -53,7 +53,7 @@ const router = createRouter({
   ],
 });
 router.beforeEach(async (to) => {
-  await loadLocaleMessages(i18n.global.locale.value as 'zh-CN' | 'en', namespaceForRoute(to.path));
+  await loadLocaleMessages(i18n.global.locale.value as 'zh-CN' | 'en', [...new Set([...namespaceForRoute(to.path), 'users', 'roles', 'departments'])] as LocaleNamespace[]);
   if (to.path === '/login' && getAccessToken()) return '/';
   if (to.meta.public) return true;
   if (to.meta.requiresAuth && !getAccessToken()) return { path: '/login', query: { redirect: to.fullPath } };
@@ -72,8 +72,11 @@ const initialLocale = localeFromStorage();
 i18n.global.locale.value = initialLocale;
 
 async function bootstrap(): Promise<void> {
-  await loadLocaleMessages(initialLocale, namespaceForRoute(window.location.pathname));
+  await loadLocaleMessages(initialLocale, [...new Set([...namespaceForRoute(window.location.pathname), 'users', 'roles', 'departments'])] as LocaleNamespace[]);
   createApp(App).use(createPinia()).use(router).use(i18n).mount('#app');
 }
 
 void bootstrap();
+
+
+

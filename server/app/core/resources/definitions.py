@@ -43,3 +43,23 @@ ROLE_RESOURCE = ResourceDefinition(
 )
 
 RESOURCE_DEFINITIONS = {USER_RESOURCE.name: USER_RESOURCE, ROLE_RESOURCE.name: ROLE_RESOURCE}
+
+DEPARTMENT_RESOURCE = ResourceDefinition(
+    name="departments",
+    label="departments.label",
+    label_plural="departments.labelPlural",
+    api_base="/api/v1/departments",
+    route="/departments",
+    permissions={"view": "departments.view", "create": "departments.create", "update": "departments.update", "delete": "departments.delete"},
+    fields=(
+        FieldDefinition("id", FieldType.text, "departments.id", required=True, nullable=False, readonly=True, sortable=True),
+        FieldDefinition("name", FieldType.text, "departments.name", required=True, nullable=False, searchable=True, sortable=True),
+        FieldDefinition("code", FieldType.text, "departments.code", required=True, nullable=False, searchable=True, sortable=True),
+        FieldDefinition("description", FieldType.text, "departments.description"),
+        FieldDefinition("is_active", FieldType.boolean, "departments.status", required=True, nullable=False, filterable=True),
+    ),
+    actions=(ActionDefinition("edit", "common.edit", "departments.update", "ghost", "edit"), ActionDefinition("delete", "common.delete", "departments.delete", "ghost", "delete")),
+    bulk_actions=(BulkActionDefinition("delete_selected", "common.delete", "departments.delete", "delete"),),
+)
+
+RESOURCE_DEFINITIONS[DEPARTMENT_RESOURCE.name] = DEPARTMENT_RESOURCE

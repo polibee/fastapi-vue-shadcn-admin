@@ -49,7 +49,7 @@ const navigationIcons: Record<NavigationIcon, Component> = {
 }
 
 async function changeLocale(nextLocale: 'zh-CN' | 'en') {
-  await setLocale(nextLocale, ['common', 'shell', 'dashboard', 'placeholder', 'users', 'roles', 'audit', 'tasks', 'settings', 'introspection', 'generator', 'modules', 'openapi', 'permissions'])
+  await setLocale(nextLocale, ['common', 'shell', 'dashboard', 'placeholder', 'users', 'roles', 'audit', 'tasks', 'settings', 'introspection', 'generator', 'modules', 'openapi', 'permissions', 'departments'])
   window.localStorage.setItem('admin-locale', nextLocale)
 }
 
@@ -198,3 +198,4 @@ const navigation = computed<{ workspace: NavigationItem[]; manage: NavigationIte
     </SidebarInset>
   </SidebarProvider>
 </template>
+

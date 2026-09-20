@@ -1,18 +1,23 @@
 import {
+  bulkDeleteDepartmentsApiV1DepartmentsBulkDeletePost,
   bulkDeleteRolesApiV1RolesBulkDeletePost,
   bulkDeleteUsersApiV1UsersBulkDeletePost,
   cancelTaskApiV1TasksTaskIdCancelPost,
+  createDepartmentApiV1DepartmentsPost,
   createRoleApiV1RolesPost,
   createTaskApiV1TasksPost,
   createUserApiV1UsersPost,
+  deleteDepartmentApiV1DepartmentsDepartmentIdDelete,
   deleteRoleApiV1RolesRoleIdDelete,
   deleteUserApiV1UsersUserIdDelete,
   listAuditLogsApiV1AuditLogsGet,
+  listDepartmentsApiV1DepartmentsGet,
   listRolesApiV1RolesGet,
   listTaskEventsApiV1TasksTaskIdEventsGet,
   listTasksApiV1TasksGet,
   listUsersApiV1UsersGet,
   retryTaskApiV1TasksTaskIdRetryPost,
+  updateDepartmentApiV1DepartmentsDepartmentIdPut,
   updateRolePermissionsApiV1RolesRoleIdPermissionsPut,
   updateRoleDataScopeApiV1RolesRoleIdDataScopePut,
   updateUserRolesApiV1UsersUserIdRolesPut,
@@ -136,3 +141,14 @@ export async function retryTask(taskId: string): Promise<TaskItem> {
   const result = await retryTaskApiV1TasksTaskIdRetryPost({ auth: getAccessToken() ?? undefined, path: { task_id: taskId }, responseStyle: 'data', throwOnError: true })
   return result as unknown as TaskItem
 }
+
+
+
+export type DepartmentRead = { id: number; name: string; code: string; description: string | null; is_active: boolean; created_at: string }
+export type DepartmentInput = { name: string; code: string; description?: string | null; is_active?: boolean }
+export type DepartmentListResponse = { items: DepartmentRead[]; total: number; offset: number; limit: number }
+export async function fetchDepartments(options: { offset?: number; limit?: number; search?: string; isActive?: boolean; sortBy?: string; sortOrder?: 'asc' | 'desc' } = {}): Promise<DepartmentListResponse> { client.setConfig({ baseUrl: '' }); const result = await listDepartmentsApiV1DepartmentsGet({ auth: getAccessToken() ?? undefined, query: { offset: options.offset ?? 0, limit: options.limit ?? 20, search: options.search || undefined, is_active: options.isActive, sort_by: options.sortBy as 'id' | 'name' | 'code' | undefined, sort_order: options.sortOrder }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentListResponse }
+export async function createDepartment(input: DepartmentInput): Promise<DepartmentRead> { client.setConfig({ baseUrl: '' }); const result = await createDepartmentApiV1DepartmentsPost({ auth: getAccessToken() ?? undefined, body: { name: input.name, code: input.code, description: input.description || null, is_active: input.is_active ?? true }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentRead }
+export async function updateDepartment(id: number, input: DepartmentInput): Promise<DepartmentRead> { client.setConfig({ baseUrl: '' }); const result = await updateDepartmentApiV1DepartmentsDepartmentIdPut({ auth: getAccessToken() ?? undefined, path: { department_id: id }, body: { name: input.name, code: input.code, description: input.description || null, is_active: input.is_active ?? true }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentRead }
+export function deleteDepartment(id: number): Promise<void> { client.setConfig({ baseUrl: '' }); return deleteDepartmentApiV1DepartmentsDepartmentIdDelete({ auth: getAccessToken() ?? undefined, path: { department_id: id }, responseStyle: 'data', throwOnError: true }).then(() => undefined) }
+export async function bulkDeleteDepartments(ids: number[]): Promise<number[]> { client.setConfig({ baseUrl: '' }); const result = await bulkDeleteDepartmentsApiV1DepartmentsBulkDeletePost({ auth: getAccessToken() ?? undefined, body: { ids }, responseStyle: 'data', throwOnError: true }); return (result as unknown as { deleted_ids: number[] }).deleted_ids }

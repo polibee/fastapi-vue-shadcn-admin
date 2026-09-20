@@ -1,0 +1,31 @@
+{
+  "departments": {
+    "label": "Department",
+    "labelPlural": "Departments",
+    "title": "Departments",
+    "description": "Manage reusable organizational departments.",
+    "refresh": "Refresh",
+    "create": "Create department",
+    "edit": "Edit department",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "name": "Name",
+    "code": "Code",
+    "descriptionField": "Description",
+    "status": "Status",
+    "allStatuses": "All statuses",
+    "active": "Active",
+    "inactive": "Inactive",
+    "search": "Search",
+    "searchPlaceholder": "Search name or code",
+    "empty": "No departments yet",
+    "page": "Page {page} of {pages}",
+    "deleteConfirm": "Delete department {name}?",
+    "bulkDeleteConfirm": "Delete {count} selected departments?",
+    "nameRequired": "Name is required.",
+    "codeRequired": "Code is required.",
+    "createFailed": "Could not create the department.",
+    "updateFailed": "Could not update the department."
+  }
+}

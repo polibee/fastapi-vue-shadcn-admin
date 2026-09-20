@@ -32,9 +32,11 @@ class ModuleRegistry:
 
 def builtin_registry() -> ModuleRegistry:
     registry = ModuleRegistry()
-    for name in ("auth", "users", "roles", "permissions", "audit", "tasks"):
+    for name in ("auth", "users", "roles", "permissions", "departments", "audit", "tasks"):
         registry.register(ModuleSpec(name))
     return registry
 
 
 __all__ = ["ModuleRegistry", "ModuleSpec", "builtin_registry"]
+
+

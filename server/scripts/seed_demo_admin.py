@@ -11,7 +11,7 @@ from server.app.modules.users.model import User, user_roles
 DEMO_USERNAME = "integration-admin"
 DEMO_EMAIL = "integration-admin@example.test"
 DEMO_PASSWORD = "integration-password"
-DEMO_PERMISSIONS = ("users.view", "users.create", "users.update", "users.delete", "roles.view", "roles.create", "roles.update", "roles.delete", "audit.view", "tasks.view", "tasks.create", "tasks.cancel", "tasks.retry")
+DEMO_PERMISSIONS = ("users.view", "users.create", "users.update", "users.delete", "roles.view", "roles.create", "roles.update", "roles.delete", "audit.view", "tasks.view", "tasks.create", "tasks.cancel", "tasks.retry", "departments.view", "departments.create", "departments.update", "departments.delete")
 
 
 async def seed_demo_admin() -> None:
@@ -60,3 +60,5 @@ async def seed_demo_admin() -> None:
 
 if __name__ == "__main__":
     asyncio.run(seed_demo_admin())
+
+
