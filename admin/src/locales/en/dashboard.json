@@ -57,6 +57,8 @@
       "roadmap": "This module will arrive in a later phase"
     },
     "repository": "Repository",
-    "lastSynced": "Synced {time}"
+    "syncing": "Syncing…",
+    "syncFailed": "Sync unavailable",
+    "lastSynced": "Updated {time}"
   }
 }

@@ -57,6 +57,8 @@
       "roadmap": "该模块将在后续阶段接入"
     },
     "repository": "仓库地址",
-    "lastSynced": "已同步 {time}"
+    "syncing": "同步中…",
+    "syncFailed": "同步不可用",
+    "lastSynced": "已更新 {time}"
   }
 }
