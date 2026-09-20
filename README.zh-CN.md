@@ -4,6 +4,13 @@
 
 仓库地址：[github.com/polibee/fastapi-vue-shadcn-admin](https://github.com/polibee/fastapi-vue-shadcn-admin)
 
+开发服务与资源
+
+以下链接用于开发环境资源和服务跳转：
+
+- [RackNerd 云服务器](https://my.racknerd.com/aff.php?aff=7572)
+- [Vast.ai GPU 云服务](https://cloud.vast.ai/?ref_id=91181)
+
 ## 当前能力
 
 - FastAPI + SQLAlchemy Async + Alembic + PostgreSQL

@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, type Component } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Activity, BookOpen, Check, ChevronDown, ClipboardList, Database, Globe2, KeyRound, LayoutDashboard, ListTodo, Package, Settings, ShieldCheck, Sparkles, Users } from '@lucide/vue'
+import { Activity, BookOpen, Check, ChevronDown, ClipboardList, Database, GitFork, Globe2, KeyRound, LayoutDashboard, ListTodo, Package, Settings, ShieldCheck, Sparkles, Users } from '@lucide/vue'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -169,6 +169,16 @@ const navigation = computed<{ workspace: NavigationItem[]; manage: NavigationIte
         </div>
         <div class="flex items-center gap-2">
           <GlobalSearch :manifests="resourceManifests" />
+          <a
+            href="https://github.com/polibee/fastapi-vue-shadcn-admin"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            :aria-label="t('common.repository')"
+          >
+            <GitFork data-icon="inline-start" aria-hidden="true" />
+            <span class="hidden sm:inline">{{ t('common.repository') }}</span>
+          </a>
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
               <Button variant="ghost" size="sm" :aria-label="t('common.languageSwitcher')">

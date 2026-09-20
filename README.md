@@ -4,6 +4,13 @@ A reusable admin foundation for building future business applications quickly. R
 
 Repository: [github.com/polibee/fastapi-vue-shadcn-admin](https://github.com/polibee/fastapi-vue-shadcn-admin)
 
+Development services
+
+Useful development infrastructure links:
+
+- [RackNerd cloud server](https://my.racknerd.com/aff.php?aff=7572)
+- [Vast.ai GPU cloud](https://cloud.vast.ai/?ref_id=91181)
+
 ## Current capabilities
 
 - FastAPI + SQLAlchemy Async + Alembic + PostgreSQL
