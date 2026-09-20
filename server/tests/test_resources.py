@@ -36,6 +36,7 @@ def test_resource_manifest_is_versioned_json_without_runtime_objects():
     assert {action["permission"] for action in manifest["actions"]} == {"users.update", "users.delete"}
     assert {action["icon"] for action in manifest["actions"]} == {"edit", "delete"}
     assert manifest["bulkActions"][0]["permission"] == "users.delete"
+    assert "id" not in manifest["table"]["columns"]
 
 
 def test_resource_registry_rejects_unknown_resource():

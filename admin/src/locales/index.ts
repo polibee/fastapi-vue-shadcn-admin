@@ -3,6 +3,8 @@ import { createI18n } from 'vue-i18n'
 export type SupportedLocale = 'zh-CN' | 'en'
 export type LocaleNamespace = 'common' | 'shell' | 'auth' | 'dashboard' | 'placeholder' | 'users' | 'roles' | 'audit' | 'tasks' | 'settings' | 'introspection' | 'generator' | 'modules' | 'openapi' | 'permissions' | 'departments'
 
+export const sharedAdminNamespaces: LocaleNamespace[] = ['auth', 'users', 'roles', 'departments']
+
 const localeLoaders = import.meta.glob<Record<string, unknown>>('./**/*.json')
 
 export const i18n = createI18n({

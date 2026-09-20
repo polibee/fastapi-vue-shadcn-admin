@@ -1,3 +1,62 @@
 {
-  "dashboard": { "eyebrow": "控制台 / 09:41 CST", "greeting": "早上好，admin。", "description": "查看系统状态，快速处理今天需要关注的事项。", "refresh": "刷新", "createResource": "创建资源", "stats": { "activeUsers": "活跃用户", "queuedTasks": "队列任务", "apiUptime": "API 可用性", "openIncidents": "待处理事件", "last30Days": "过去 30 天", "yesterday": "昨天", "mediumLow": "2 个中等 · 1 个低级", "needsReview": "需要检查" }, "activity": { "kicker": "最新动态", "title": "活动", "viewAll": "查看全部", "rolePolicy": "角色策略已更新", "permissions": "权限 / 管理员", "integration": "新集成已连接", "stripe": "Stripe 生产环境", "latency": "Worker 延迟增加", "queue": "队列 / background", "backup": "数据库备份已完成", "postgres": "PostgreSQL / primary" }, "health": { "kicker": "基础设施", "title": "服务健康", "live": "实时", "operational": "运行正常", "api": "API Gateway", "worker": "Task Worker", "postgres": "PostgreSQL", "redis": "Redis Cache" }, "milestone": { "kicker": "下一里程碑", "title": "Resource Engine", "description": "一次定义，到处渲染。第一个可复用资源即将完成。", "open": "打开资源注册表", "complete": "完成" }, "shortcuts": { "title": "快速入口", "users": "管理账户", "roles": "访问控制", "tasks": "队列监控", "settings": "系统配置" }, "toast": { "refreshed": "工作区数据已刷新", "roadmap": "该模块将在后续阶段接入" } }
+  "dashboard": {
+    "eyebrow": "控制台 / 09:41 CST",
+    "greeting": "早上好，admin。",
+    "description": "查看系统状态，快速处理今天需要关注的事项。",
+    "refresh": "刷新",
+    "createResource": "创建资源",
+    "stats": {
+      "activeUsers": "活跃用户",
+      "queuedTasks": "队列任务",
+      "apiUptime": "API 可用性",
+      "openIncidents": "待处理事件",
+      "last30Days": "过去 30 天",
+      "yesterday": "昨天",
+      "mediumLow": "2 个中等 · 1 个低级",
+      "needsReview": "需要检查"
+    },
+    "activity": {
+      "kicker": "最新动态",
+      "title": "活动",
+      "viewAll": "查看全部",
+      "rolePolicy": "角色策略已更新",
+      "permissions": "权限 / 管理员",
+      "integration": "新集成已连接",
+      "stripe": "Stripe 生产环境",
+      "latency": "Worker 延迟增加",
+      "queue": "队列 / background",
+      "backup": "数据库备份已完成",
+      "postgres": "PostgreSQL / primary"
+    },
+    "health": {
+      "kicker": "基础设施",
+      "title": "服务健康",
+      "live": "实时",
+      "operational": "运行正常",
+      "api": "API Gateway",
+      "worker": "Task Worker",
+      "postgres": "PostgreSQL",
+      "redis": "Redis Cache"
+    },
+    "milestone": {
+      "kicker": "下一里程碑",
+      "title": "Resource Engine",
+      "description": "一次定义，到处渲染。第一个可复用资源即将完成。",
+      "open": "打开资源注册表",
+      "complete": "完成"
+    },
+    "shortcuts": {
+      "title": "快速入口",
+      "users": "管理账户",
+      "roles": "访问控制",
+      "tasks": "队列监控",
+      "settings": "系统配置"
+    },
+    "toast": {
+      "refreshed": "工作区数据已刷新",
+      "roadmap": "该模块将在后续阶段接入"
+    },
+    "repository": "仓库地址",
+    "lastSynced": "已同步 {time}"
+  }
 }

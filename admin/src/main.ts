@@ -16,7 +16,7 @@ import PermissionsPage from './components/admin/PermissionsPage.vue';
 import { namespacesForResourceRoute, resourceRoutes } from './router/resource-routes';
 import { clearAccessToken, getAccessToken } from './core/api/auth';
 import { clearCurrentUser, ensureCurrentUser, hasPermission } from './core/permissions';
-import { i18n, loadLocaleMessages, localeFromStorage, type LocaleNamespace } from './locales';
+import { i18n, loadLocaleMessages, localeFromStorage, sharedAdminNamespaces, type LocaleNamespace } from './locales';
 import './styles.css';
 
 const namespaceForRoute = (path: string): LocaleNamespace[] => {
@@ -53,7 +53,7 @@ const router = createRouter({
   ],
 });
 router.beforeEach(async (to) => {
-  await loadLocaleMessages(i18n.global.locale.value as 'zh-CN' | 'en', [...new Set([...namespaceForRoute(to.path), 'users', 'roles', 'departments'])] as LocaleNamespace[]);
+  await loadLocaleMessages(i18n.global.locale.value as 'zh-CN' | 'en', [...new Set([...namespaceForRoute(to.path), ...sharedAdminNamespaces])] as LocaleNamespace[]);
   if (to.path === '/login' && getAccessToken()) return '/';
   if (to.meta.public) return true;
   if (to.meta.requiresAuth && !getAccessToken()) return { path: '/login', query: { redirect: to.fullPath } };
@@ -72,7 +72,7 @@ const initialLocale = localeFromStorage();
 i18n.global.locale.value = initialLocale;
 
 async function bootstrap(): Promise<void> {
-  await loadLocaleMessages(initialLocale, [...new Set([...namespaceForRoute(window.location.pathname), 'users', 'roles', 'departments'])] as LocaleNamespace[]);
+  await loadLocaleMessages(initialLocale, [...new Set([...namespaceForRoute(window.location.pathname), ...sharedAdminNamespaces])] as LocaleNamespace[]);
   createApp(App).use(createPinia()).use(router).use(i18n).mount('#app');
 }
 

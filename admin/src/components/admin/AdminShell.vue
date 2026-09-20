@@ -151,7 +151,7 @@ const navigation = computed<{ workspace: NavigationItem[]; manage: NavigationIte
               <DropdownMenuContent align="end" side="top" class="w-56">
                 <DropdownMenuLabel>{{ t('common.admin') }}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>{{ t('nav.settings') }}</DropdownMenuItem>
+                <DropdownMenuItem @select="router.push('/settings')">{{ t('nav.settings') }}</DropdownMenuItem>
                 <DropdownMenuItem @select="signOut">{{ t('auth.signOut') }}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

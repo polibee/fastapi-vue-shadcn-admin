@@ -88,7 +88,7 @@ def compile_manifest(resource: ResourceDefinition) -> dict[str, Any]:
             {"name": field.name, "type": field.type.value, **{key: value for key, value in asdict(field).items() if key not in {"name", "type"} and value is not None}}
             for field in resource.fields
         ],
-        "table": {"columns": [field.name for field in resource.fields if not field.readonly or field.name == "id"]},
+        "table": {"columns": [field.name for field in resource.fields if field.name != "id" and not field.readonly]},
         "forms": {"create": {"fields": [field.name for field in resource.fields if not field.readonly]}, "edit": {"fields": [field.name for field in resource.fields if not field.readonly]}},
         "actions": [asdict(action) for action in resource.actions],
         "bulkActions": [asdict(action) for action in resource.bulk_actions],

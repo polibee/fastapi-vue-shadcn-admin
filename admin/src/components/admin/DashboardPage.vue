@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Activity, Database, ListTodo, RefreshCw, Server, Settings, ShieldCheck, Users } from '@lucide/vue'
+import { Activity, Database, ListTodo, RefreshCw, Server, Users } from '@lucide/vue'
 import { Toaster, toast } from 'vue-sonner'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,6 +14,8 @@ import AdminShell from './AdminShell.vue'
 
 const { t } = useI18n()
 const loading = ref(true)
+const lastSyncedAt = ref<Date | null>(null)
+let refreshTimer: number | undefined
 const health = ref<HealthSummary>({ status: 'unavailable', database: 'unavailable', redis: 'unavailable', tasks: { total: 0, pending: 0, running: 0, failed: 0, dead: 0 } })
 
 const serviceIcons: Record<string, typeof Server> = { api: Server, worker: ListTodo, database: Database, redis: Activity }
@@ -31,20 +32,32 @@ function serviceStatus(source: string): HealthStatus {
   return health.value.status
 }
 
-async function refreshHealth() {
+function syncedLabel() {
+  return lastSyncedAt.value ? new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(lastSyncedAt.value) : ''
+}
+
+async function refreshHealth(announce = true) {
   loading.value = true
   try {
     health.value = await fetchHealth()
-    toast.success(t('dashboard.toast.refreshed'))
+    lastSyncedAt.value = new Date()
+    if (announce) toast.success(t('dashboard.toast.refreshed'))
   } catch {
     health.value = { status: 'unavailable', database: 'unavailable', redis: 'unavailable', tasks: { total: 0, pending: 0, running: 0, failed: 0, dead: 0 } }
-    toast.error(t('dashboard.toast.roadmap'))
+    if (announce) toast.error(t('dashboard.toast.roadmap'))
   } finally {
     loading.value = false
   }
 }
 
-onMounted(refreshHealth)
+onMounted(async () => {
+  await refreshHealth()
+  refreshTimer = window.setInterval(() => void refreshHealth(false), 30000)
+})
+
+onUnmounted(() => {
+  if (refreshTimer) window.clearInterval(refreshTimer)
+})
 </script>
 
 <template>
@@ -56,10 +69,14 @@ onMounted(refreshHealth)
           <h1 class="text-3xl font-semibold tracking-tight">{{ t('dashboard.greeting') }}</h1>
           <p class="max-w-xl text-sm text-muted-foreground">{{ t('dashboard.description') }}</p>
         </div>
-        <Button variant="outline" @click="refreshHealth">
-          <RefreshCw data-icon="inline-start" :class="loading ? 'animate-spin' : ''" aria-hidden="true" />
-          {{ t('dashboard.refresh') }}
-        </Button>
+        <div class="flex flex-wrap items-center gap-2">
+          <span v-if="lastSyncedAt" class="text-xs text-muted-foreground">{{ t('dashboard.lastSynced', { time: syncedLabel() }) }}</span>
+          <a href="https://github.com/polibee/fastapi-vue-shadcn-admin" target="_blank" rel="noreferrer" class="text-xs text-primary underline-offset-4 hover:underline">{{ t('dashboard.repository') }}</a>
+          <Button variant="outline" @click="refreshHealth()">
+            <RefreshCw data-icon="inline-start" :class="loading ? 'animate-spin' : ''" aria-hidden="true" />
+            {{ t('dashboard.refresh') }}
+          </Button>
+        </div>
       </section>
 
       <Alert v-if="health.status === 'unavailable'" variant="destructive">

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { sharedAdminNamespaces } from './index'
 import enAuth from './en/auth.json'
 import enCommon from './en/common.json'
 import enDashboard from './en/dashboard.json'
@@ -13,6 +14,10 @@ function keys(value: unknown): string[] {
 }
 
 describe('locale namespaces', () => {
+  it('keeps shared admin namespaces available for shell navigation', () => {
+    expect(sharedAdminNamespaces).toEqual(['auth', 'users', 'roles', 'departments'])
+  })
+
   it('keeps the default language namespace structure aligned', () => {
     expect(keys(zhCommon)).toEqual(keys(enCommon))
     expect(keys(zhShell)).toEqual(keys(enShell))
