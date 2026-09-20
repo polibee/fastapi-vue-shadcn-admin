@@ -6,5 +6,5 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
-  server: { port: 4181, strictPort: false, proxy: { '/api': 'http://127.0.0.1:8012', '/openapi.json': 'http://127.0.0.1:8012' } },
+  server: { port: 4181, strictPort: false, proxy: { '/api': 'http://127.0.0.1:8012', '/docs': 'http://127.0.0.1:8012', '/openapi.json': 'http://127.0.0.1:8012' } },
 });
