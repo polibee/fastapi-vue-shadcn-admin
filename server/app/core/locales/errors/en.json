@@ -1,0 +1,7 @@
+{
+  "database_not_configured": "Database is not configured",
+  "database_unavailable": "Database is unavailable",
+  "request_validation_failed": "Request validation failed",
+  "http_error": "Request failed",
+  "rate_limited": "Too many requests. Please try again later."
+}

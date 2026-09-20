@@ -1,0 +1,1 @@
+{"permissions":{"title":"权限目录","description":"查看系统已注册的权限代码与说明。","refresh":"刷新权限","catalog":"已注册权限","total":"共 {count} 项权限","loading":"正在加载权限…","loadError":"权限目录加载失败。","empty":"暂无已注册权限。","registered":"已注册","noDescription":"暂无说明。"}}

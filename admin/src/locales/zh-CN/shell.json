@@ -1,0 +1,8 @@
+{
+  "brand": { "name": "FastAPI Admin", "caption": "管理基础平台" },
+  "workspace": { "name": "Northstar 工作区", "environment": "生产环境" },
+  "nav": { "workspace": "工作区", "overview": "总览", "activity": "活动", "tasks": "任务队列", "manage": "管理", "users": "用户", "roles": "角色与权限", "permissions": "权限目录", "audit": "审计日志", "introspection": "数据库结构", "generator": "代码生成器", "modules": "模块注册表", "apiExplorer": "OpenAPI 接口", "settings": "设置", "docs": "文档" },
+  "header": { "operational": "所有系统运行正常", "date": "2026 年 9 月 19 日" },
+  "health": { "operational": "运行正常", "degraded": "性能下降", "unavailable": "服务不可用" },
+  "search": { "open": "搜索", "title": "全局搜索", "description": "搜索后台模块和管理入口。", "placeholder": "搜索模块…", "noResults": "没有匹配的入口", "workspace": "工作区", "manage": "管理" }
+}

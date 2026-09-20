@@ -1,0 +1,8 @@
+{
+  "brand": { "name": "FastAPI Admin", "caption": "admin foundation" },
+  "workspace": { "name": "Northstar workspace", "environment": "Production" },
+  "nav": { "workspace": "Workspace", "overview": "Overview", "activity": "Activity", "tasks": "Task queue", "manage": "Manage", "users": "Users", "roles": "Roles & permissions", "permissions": "Permission catalog", "audit": "Audit log", "introspection": "Database schema", "generator": "Code generator", "modules": "Module registry", "apiExplorer": "OpenAPI explorer", "settings": "Settings", "docs": "Documentation" },
+  "header": { "operational": "All systems operational", "date": "September 19, 2026" },
+  "health": { "operational": "Operational", "degraded": "Degraded", "unavailable": "Unavailable" },
+  "search": { "open": "Search", "title": "Global search", "description": "Search admin modules and management entries.", "placeholder": "Search modules…", "noResults": "No matching entry", "workspace": "Workspace", "manage": "Manage" }
+}

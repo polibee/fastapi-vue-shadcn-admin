@@ -1,0 +1,8 @@
+{
+  "invalid_credentials": "Invalid username or password.",
+  "authentication_required": "Authentication is required.",
+  "invalid_token": "The access token is invalid or expired.",
+  "permission_denied": "You do not have permission to perform this action.",
+  "invalid_refresh_token": "The refresh token is invalid, expired, or revoked.",
+  "login_rate_limited": "Too many login attempts. Please try again later."
+}

@@ -1,0 +1,3 @@
+{
+  "common": { "admin": "admin", "administrator": "Administrator", "justNow": "Just now", "minutesAgo": "min ago", "hourAgo": "hr ago", "notAvailable": "—", "actions": "Actions", "select": "Select", "selectAll": "Select all", "sortBy": "Sort by", "sortOrder": "Sort order", "ascending": "Ascending", "descending": "Descending", "toggleSidebar": "Toggle sidebar", "languageSwitcher": "Language", "languageZh": "简体中文", "languageEn": "English" }
+}

@@ -1,0 +1,33 @@
+{
+  "settings": {
+    "title": "System settings",
+    "description": "Review safe runtime configuration for the current environment. Values come from server environment variables.",
+    "refresh": "Refresh settings",
+    "loading": "Loading settings…",
+    "loadError": "Settings could not be loaded. Try again later.",
+    "readOnly": "Read-only",
+    "application": "Application",
+    "appName": "Application name",
+    "environment": "Environment",
+    "features": "Feature flags",
+    "apiDocs": "API documentation",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "connections": "Service connections",
+    "connectionDescription": "Configuration state and live health state are shown separately.",
+    "database": "Database",
+    "redis": "Redis",
+    "configured": "Configured",
+    "notConfigured": "Not configured",
+    "runtime": "Runtime parameters",
+    "tokenLifetime": "Access token lifetime",
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "taskLease": "Task lease duration",
+    "securityNote": "Sensitive connection URLs, JWT secrets, and credentials are never returned by this endpoint.",
+    "liveStatus": "Live status",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "unavailable": "Unavailable"
+  }
+}

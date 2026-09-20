@@ -1,0 +1,1 @@
+{"openapi":{"title":"OpenAPI 接口浏览器","description":"只读浏览当前 FastAPI 服务公开的接口契约。","refresh":"刷新接口","loading":"正在加载 OpenAPI…","loadError":"OpenAPI 加载失败。","version":"版本","operations":"接口数","filter":"按 Tag 筛选","all":"全部","method":"方法","path":"路径","summary":"说明","empty":"没有匹配的接口"}}

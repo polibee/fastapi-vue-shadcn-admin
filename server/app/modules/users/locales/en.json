@@ -1,0 +1,6 @@
+{
+  "user_already_exists": "User already exists",
+  "user_not_found": "User not found",
+  "data_scope_denied": "Your data scope does not allow access to this user",
+  "role_not_found": "Role not found"
+}

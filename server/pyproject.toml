@@ -1,0 +1,29 @@
+[project]
+name = "fastapi-vue-admin-server"
+version = "0.1.0"
+requires-python = ">=3.13"
+
+[project.scripts]
+admin = "server.app.cli:main"
+
+dependencies = [
+  "fastapi>=0.141,<1",
+  "uvicorn[standard]>=0.53,<1",
+  "pydantic-settings>=2.15,<3",
+  "sqlalchemy>=2.0.54,<3",
+  "alembic>=1.20,<2",
+  "asyncpg>=0.31,<1",
+  "aiomysql>=0.3,<1",
+  "redis>=5.3,<6",
+  "arq>=0.26,<1",
+  "scalar-fastapi>=1.9,<2",
+  "httpx>=0.28,<1",
+]
+
+[dependency-groups]
+dev = [
+  "aiosqlite>=0.22,<1",
+  "httpx>=0.28,<1",
+  "pytest>=9.1,<10",
+  "pytest-asyncio>=1.4,<2",
+]

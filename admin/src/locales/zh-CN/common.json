@@ -1,0 +1,3 @@
+{
+  "common": { "admin": "admin", "administrator": "管理员", "justNow": "刚刚", "minutesAgo": "分钟前", "hourAgo": "小时前", "notAvailable": "—", "actions": "操作", "select": "选择", "selectAll": "全选", "sortBy": "排序字段", "sortOrder": "排序方向", "ascending": "升序", "descending": "降序", "toggleSidebar": "切换侧边栏", "languageSwitcher": "切换语言", "languageZh": "简体中文", "languageEn": "English" }
+}

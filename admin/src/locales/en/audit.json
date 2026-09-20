@@ -1,0 +1,3 @@
+{
+  "audit": { "title": "Audit log", "description": "Review protected administrative changes.", "refresh": "Refresh", "search": "Search", "searchPlaceholder": "Search action, resource, or request ID", "previous": "Previous", "next": "Next", "page": "Page {current} / {total}", "empty": "No audit entries yet", "total": "{count} entries", "loadFailed": "Failed to load audit logs.", "actor": "Actor", "action": "Action", "resource": "Resource", "requestId": "Request ID" }
+}

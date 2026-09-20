@@ -9,10 +9,7 @@ __pycache__/
 *.pid
 server-dev*.log
 server-p2*.log
-server-p2.pid
-admin-vite*.log
-admin-vite.pid
 server/p2-test.sqlite3
 admin/node_modules/
 admin/dist/
-admin/dist/
+docs/shadcn-vue-dev/

@@ -1,0 +1,1 @@
+{"modules":{"title":"模块注册表","description":"查看当前已注册的业务模块及其 Resource Manifest。","refresh":"刷新模块","loading":"正在加载模块…","loadError":"模块加载失败。","api":"API 地址","route":"前端路由","permissions":"权限","fields":"字段","features":"功能","empty":"暂无注册模块","enabled":"已启用","disabled":"未启用"}}

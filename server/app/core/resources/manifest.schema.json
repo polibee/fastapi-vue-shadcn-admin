@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fastapi-admin.local/schemas/resource-manifest-1.0.json",
+  "title": "Resource Manifest v1",
+  "type": "object",
+  "required": ["schemaVersion", "name", "label", "labelPlural", "routes", "api", "permissions", "features", "query", "fields", "table", "forms", "actions", "bulkActions", "relations"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "label": {"type": "string"},
+    "labelPlural": {"type": "string"},
+    "routes": {"type": "object", "required": ["list"], "properties": {"list": {"type": "string"}}, "additionalProperties": false},
+    "api": {"type": "object", "required": ["base"], "properties": {"base": {"type": "string"}}, "additionalProperties": false},
+    "permissions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "features": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "query": {"type": "object", "required": ["searchFields", "filterFields", "sortFields", "defaultSort"], "properties": {"searchFields": {"type": "array", "items": {"type": "string"}}, "filterFields": {"type": "array", "items": {"type": "string"}}, "sortFields": {"type": "array", "items": {"type": "string"}}, "defaultSort": {"type": "object", "required": ["field", "direction"], "properties": {"field": {"type": "string"}, "direction": {"enum": ["asc", "desc"]}}, "additionalProperties": false}}, "additionalProperties": false},
+    "fields": {"type": "array", "items": {"type": "object", "required": ["name", "type", "label"]}},
+    "table": {"type": "object", "required": ["columns"], "properties": {"columns": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false},
+    "forms": {"type": "object", "required": ["create", "edit"], "properties": {"create": {"type": "object", "required": ["fields"], "properties": {"fields": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false}, "edit": {"type": "object", "required": ["fields"], "properties": {"fields": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false}}, "additionalProperties": false},
+    "actions": {"type": "array"},
+    "bulkActions": {"type": "array"},
+    "relations": {"type": "array"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,1 @@
+{"generator":{"title":"代码生成器","description":"预览注册资源的 CRUD 生成计划。浏览器仅支持只读预览。","resource":"资源","selectResource":"选择资源","loading":"正在加载生成计划…","loadError":"生成计划加载失败。","plan":"生成计划","module":"模块目录","permissions":"权限","files":"目标文件","overwrite":"覆盖策略","never":"永不覆盖","readOnly":"只读预览","empty":"请选择一个资源"}}

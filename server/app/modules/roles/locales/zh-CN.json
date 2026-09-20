@@ -1,0 +1,6 @@
+{
+  "role_already_exists": "角色已存在",
+  "role_not_found": "角色不存在",
+  "permission_not_found": "一个或多个权限不存在",
+  "data_scope_not_supported": "不支持此数据范围"
+}

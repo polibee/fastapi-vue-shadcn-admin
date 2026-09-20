@@ -1,0 +1,33 @@
+{
+  "settings": {
+    "title": "系统设置",
+    "description": "查看当前环境的安全运行配置。配置来源于服务端环境变量。",
+    "refresh": "刷新配置",
+    "loading": "正在加载配置…",
+    "loadError": "配置加载失败，请稍后重试。",
+    "readOnly": "只读",
+    "application": "应用",
+    "appName": "应用名称",
+    "environment": "运行环境",
+    "features": "功能开关",
+    "apiDocs": "API 文档",
+    "enabled": "已启用",
+    "disabled": "已禁用",
+    "connections": "服务连接",
+    "connectionDescription": "配置状态与实时健康状态分开显示。",
+    "database": "数据库",
+    "redis": "Redis",
+    "configured": "已配置",
+    "notConfigured": "未配置",
+    "runtime": "运行参数",
+    "tokenLifetime": "访问令牌有效期",
+    "minutes": "分钟",
+    "seconds": "秒",
+    "taskLease": "任务租约时长",
+    "securityNote": "敏感连接地址、JWT 密钥和凭据不会通过此接口返回。",
+    "liveStatus": "实时状态",
+    "operational": "运行正常",
+    "degraded": "性能下降",
+    "unavailable": "不可用"
+  }
+}
