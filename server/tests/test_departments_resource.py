@@ -49,7 +49,7 @@ def test_departments_resource_definition_has_no_page_component_requirement():
     from server.app.core.resources.registry import get_resource_manifest
 
     manifest = get_resource_manifest("departments")
-    assert manifest["routes"]["list"] == "/departments"
+    assert manifest["routes"]["list"] == "/admin/departments"
     assert manifest["permissions"] == {
         "view": "departments.view",
         "create": "departments.create",
