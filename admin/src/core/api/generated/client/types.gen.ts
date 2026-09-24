@@ -1084,6 +1084,36 @@ export type DeleteRoleApiV1RolesRoleIdDeleteResponses = {
 
 export type DeleteRoleApiV1RolesRoleIdDeleteResponse = DeleteRoleApiV1RolesRoleIdDeleteResponses[keyof DeleteRoleApiV1RolesRoleIdDeleteResponses];
 
+export type ReadRoleApiV1RolesRoleIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Role Id
+         */
+        role_id: number;
+    };
+    query?: never;
+    url: '/api/v1/roles/{role_id}';
+};
+
+export type ReadRoleApiV1RolesRoleIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ReadRoleApiV1RolesRoleIdGetError = ReadRoleApiV1RolesRoleIdGetErrors[keyof ReadRoleApiV1RolesRoleIdGetErrors];
+
+export type ReadRoleApiV1RolesRoleIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RoleRead;
+};
+
+export type ReadRoleApiV1RolesRoleIdGetResponse = ReadRoleApiV1RolesRoleIdGetResponses[keyof ReadRoleApiV1RolesRoleIdGetResponses];
+
 export type UpdateRoleApiV1RolesRoleIdPutData = {
     body: RoleUpdate;
     path: {

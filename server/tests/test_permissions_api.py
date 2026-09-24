@@ -62,3 +62,27 @@ async def test_administrator_role_keeps_all_permissions_when_permissions_are_upd
             assert response.json()["permissions"] == [item.code for item in expected]
     finally:
         app.dependency_overrides.clear()
+
+
+@pytest.mark.asyncio
+async def test_role_detail_returns_permissions_for_detail_page(session, admin_headers):
+    from server.app.core.database.session import get_session
+    from server.app.main import app
+    from server.app.modules.roles.model import Role
+
+    role = Role(name="detail-role", description="Detail page")
+    session.add(role)
+    await session.flush()
+
+    async def override_session():
+        yield session
+
+    app.dependency_overrides[get_session] = override_session
+    try:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+            response = await client.get(f"/api/v1/roles/{role.id}", headers=admin_headers)
+            assert response.status_code == 200
+            assert response.json()["name"] == "detail-role"
+            assert response.json()["permissions"] == []
+    finally:
+        app.dependency_overrides.clear()

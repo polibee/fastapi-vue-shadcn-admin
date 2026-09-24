@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import type { Component } from 'vue'
 import RolesPage from '@/components/admin/RolesPage.vue'
+import RoleDetailPage from '@/components/admin/RoleDetailPage.vue'
 import UsersPage from '@/components/admin/UsersPage.vue'
 import GenericResourcePage from '@/components/admin/GenericResourcePage.vue'
 import type { LocaleNamespace } from '@/locales'
@@ -28,7 +29,13 @@ export const resourceRoutes: RouteRecordRaw[] = resourceRouteRegistry.map((resou
   meta: { requiresAuth: true, permission: resource.permission, resource: resource.name },
 }))
 
+resourceRoutes.push({
+  path: adminPath('/roles/:roleId'),
+  component: RoleDetailPage,
+  meta: { requiresAuth: true, permission: 'roles.view', resource: 'roles' },
+})
+
 export function namespacesForResourceRoute(path: string): LocaleNamespace[] | undefined {
-  return resourceRouteRegistry.find((resource) => resource.path === path)?.namespaces
+  return resourceRouteRegistry.find((resource) => resource.path === path || (resource.name === 'roles' && path.startsWith(`${resource.path}/`)))?.namespaces
 }
 

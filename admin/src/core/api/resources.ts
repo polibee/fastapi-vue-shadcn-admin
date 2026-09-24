@@ -13,6 +13,7 @@ import {
   listAuditLogsApiV1AuditLogsGet,
   listDepartmentsApiV1DepartmentsGet,
   listRolesApiV1RolesGet,
+  readRoleApiV1RolesRoleIdGet,
   listTaskEventsApiV1TasksTaskIdEventsGet,
   listTasksApiV1TasksGet,
   listUsersApiV1UsersGet,
@@ -64,6 +65,12 @@ export async function createRole(input: { name: string; description: string }): 
     responseStyle: 'data',
     throwOnError: true,
   })
+  return result as unknown as RoleRead
+}
+
+export async function fetchRole(roleId: number): Promise<RoleRead> {
+  client.setConfig({ baseUrl: '' })
+  const result = await readRoleApiV1RolesRoleIdGet({ auth: getAccessToken() ?? undefined, path: { role_id: roleId }, responseStyle: 'data', throwOnError: true })
   return result as unknown as RoleRead
 }
 

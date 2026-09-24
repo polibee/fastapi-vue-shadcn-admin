@@ -27,6 +27,9 @@ class RoleService:
     async def list(self, offset: int, limit: int, search: str | None = None, sort_by: str = "id", sort_order: str = "asc") -> tuple[list[Role], int]:
         return await self.repository.list(offset, limit, search, sort_by, sort_order)
 
+    async def get(self, role_id: int) -> Role | None:
+        return await self.repository.get_by_id(role_id)
+
     async def create(self, **values) -> Role:
         if await self.repository.get_by_name(values["name"]):
             raise DuplicateRoleError

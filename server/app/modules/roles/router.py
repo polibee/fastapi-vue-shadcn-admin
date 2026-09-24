@@ -31,6 +31,17 @@ async def list_roles(offset: int = Query(default=0, ge=0), limit: int = Query(de
     return RoleListResponse(items=[to_role_read(role) for role in items], total=total, offset=offset, limit=limit)
 
 
+@router.get("/{role_id}", response_model=RoleRead)
+async def read_role(role_id: int, request: Request, session: AsyncSession = Depends(get_session), _: User = Depends(require_permission("roles.view"))) -> RoleRead:
+    role = await RoleService(session).get(role_id)
+    if role is None:
+        from fastapi import HTTPException
+
+        locale = locale_from_request(request)
+        raise HTTPException(status_code=404, detail={"code": "role_not_found", "message": translate("modules/roles", "role_not_found", locale)})
+    return to_role_read(role)
+
+
 @router.post("", response_model=RoleRead, status_code=201)
 async def create_role(request: Request, payload: RoleCreate, session: AsyncSession = Depends(get_session), actor: User = Depends(require_permission("roles.create"))) -> RoleRead:
     try:
