@@ -43,6 +43,7 @@ async def admin_headers(session):
             Permission(code="departments.create"),
             Permission(code="departments.update"),
             Permission(code="departments.delete"),
+            Permission(code="health.detail"),
         ],
     )
     user = User(username="test-admin", email="test-admin@example.test", password_hash=hash_password("secret"), roles=[role])

@@ -3,8 +3,9 @@ from httpx import ASGITransport, AsyncClient
 
 
 @pytest.mark.anyio
-async def test_health_reports_database_and_redis_status(monkeypatch):
+async def test_health_detail_reports_database_redis_and_tasks_to_authorized_users(monkeypatch, admin_headers, session):
     from server.app.main import app
+    from server.app.core.database.session import get_session
 
     async def healthy_database():
         return True
@@ -21,8 +22,16 @@ async def test_health_reports_database_and_redis_status(monkeypatch):
 
     monkeypatch.setattr("server.app.core.health.get_task_stats", empty_task_stats)
 
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
-        response = await client.get("/api/v1/health")
+    async def override_session():
+        yield session
+
+    app.dependency_overrides[get_session] = override_session
+
+    try:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+            response = await client.get("/api/v1/health/detail", headers=admin_headers)
+    finally:
+        app.dependency_overrides.clear()
 
     assert response.status_code == 200
     assert response.json() == {
@@ -47,13 +56,13 @@ async def test_health_degrades_without_optional_dependencies(monkeypatch):
     monkeypatch.setattr("server.app.core.health.check_redis", unavailable_redis)
 
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
-        response = await client.get("/api/v1/health")
+        response = await client.get("/api/v1/health/ready")
 
     assert response.status_code == 200
     assert response.json()["status"] == "degraded"
     assert response.json()["database"]["status"] == "down"
     assert response.json()["redis"]["status"] == "down"
-    assert response.json()["tasks"]["total"] >= 0
+    assert "tasks" not in response.json()
 
 
 @pytest.mark.anyio
@@ -70,9 +79,30 @@ async def test_health_does_not_expose_connection_details(monkeypatch):
     monkeypatch.setattr("server.app.core.health.check_redis", raising_redis)
 
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
-        response = await client.get("/api/v1/health")
+        response = await client.get("/api/v1/health/ready")
 
     body = response.text
     assert response.status_code == 200
     assert "secret" not in body
     assert "example.test" not in body
+
+
+@pytest.mark.anyio
+async def test_health_live_is_public_and_does_not_expose_dependencies():
+    from server.app.main import app
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        response = await client.get("/api/v1/health/live")
+
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
+
+
+@pytest.mark.anyio
+async def test_health_detail_requires_permission():
+    from server.app.main import app
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        response = await client.get("/api/v1/health/detail")
+
+    assert response.status_code == 401

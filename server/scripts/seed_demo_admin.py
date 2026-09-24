@@ -13,7 +13,7 @@ from server.app.modules.users.model import User, user_roles
 DEMO_USERNAME = "integration-admin"
 DEMO_EMAIL = "integration-admin@example.test"
 DEMO_PASSWORD = "integration-password"
-DEMO_PERMISSIONS = ("users.view", "users.create", "users.update", "users.delete", "roles.view", "roles.create", "roles.update", "roles.delete", "audit.view", "tasks.view", "tasks.create", "tasks.cancel", "tasks.retry", "departments.view", "departments.create", "departments.update", "departments.delete")
+DEMO_PERMISSIONS = ("users.view", "users.create", "users.update", "users.delete", "roles.view", "roles.create", "roles.update", "roles.delete", "audit.view", "tasks.view", "tasks.create", "tasks.cancel", "tasks.retry", "departments.view", "departments.create", "departments.update", "departments.delete", "health.detail")
 
 
 async def seed_demo_admin() -> None:

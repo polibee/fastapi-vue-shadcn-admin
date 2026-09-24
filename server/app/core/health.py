@@ -1,10 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from sqlalchemy import func, select, text
 
 from server.app.core.cache.redis import check_redis
 from server.app.core.database.session import SessionFactory, engine
 from server.app.modules.tasks.model import Task
+from server.app.core.permissions import require_permission
+from server.app.modules.users.model import User
 
 router = APIRouter(prefix="/api/v1", tags=["Health"])
 
@@ -18,6 +20,12 @@ class HealthResponse(BaseModel):
     database: DependencyStatus
     redis: DependencyStatus
     tasks: "TaskQueueStats"
+
+
+class ReadinessResponse(BaseModel):
+    status: str
+    database: DependencyStatus
+    redis: DependencyStatus
 
 
 class TaskQueueStats(BaseModel):
@@ -39,16 +47,35 @@ async def check_database() -> bool:
         return False
 
 
-@router.get("/health", response_model=HealthResponse)
-async def health() -> HealthResponse:
+@router.get("/health", response_model=ReadinessResponse)
+async def health() -> ReadinessResponse:
+    return await readiness()
+
+
+@router.get("/health/live")
+async def liveness() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@router.get("/health/ready", response_model=ReadinessResponse)
+async def readiness() -> ReadinessResponse:
     database_up, redis_up = await _safe_checks()
-    task_stats = await get_task_stats()
     overall = "ok" if database_up and redis_up else "degraded"
-    return HealthResponse(
+    return ReadinessResponse(
         status=overall,
         database=DependencyStatus(status="up" if database_up else "down"),
         redis=DependencyStatus(status="up" if redis_up else "down"),
-        tasks=task_stats,
+    )
+
+
+@router.get("/health/detail", response_model=HealthResponse)
+async def health_detail(_: User = Depends(require_permission("health.detail"))) -> HealthResponse:
+    readiness_response = await readiness()
+    return HealthResponse(
+        status=readiness_response.status,
+        database=readiness_response.database,
+        redis=readiness_response.redis,
+        tasks=await get_task_stats(),
     )
 
 
