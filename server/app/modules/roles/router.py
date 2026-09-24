@@ -11,7 +11,7 @@ from server.app.modules.users.model import User
 from .schema import RoleBulkDelete, RoleBulkDeleteResponse, RoleCreate, RoleDataScopeUpdate, RoleListResponse, RolePermissionsUpdate, RoleRead, RoleUpdate
 from .service import DuplicateRoleError, InvalidDataScopeError, InvalidPermissionError, ProtectedRoleError, RoleService
 
-router = APIRouter(prefix="/api/v1/roles", tags=["Roles"], dependencies=[api_rate_limit("roles")])
+router = APIRouter(prefix="/api/v1/roles", tags=["Roles"], dependencies=[api_rate_limit("roles", fail_closed=True)])
 
 
 def to_role_read(role) -> RoleRead:

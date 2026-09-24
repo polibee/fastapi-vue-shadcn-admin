@@ -9,7 +9,7 @@ from server.app.modules.users.model import User
 from .schema import DepartmentBulkDelete, DepartmentBulkDeleteResponse, DepartmentCreate, DepartmentListResponse, DepartmentRead, DepartmentUpdate
 from .service import DepartmentService, DuplicateDepartmentError
 
-router = APIRouter(prefix="/api/v1/departments", tags=["Departments"], dependencies=[api_rate_limit("departments")])
+router = APIRouter(prefix="/api/v1/departments", tags=["Departments"], dependencies=[api_rate_limit("departments", fail_closed=True)])
 def to_department_read(department): return DepartmentRead.model_validate(department)
 def error(request: Request, code: str, status_code: int):
     locale = locale_from_request(request)

@@ -15,7 +15,7 @@ from .events import record_task_event
 from .model import Task, TaskEvent
 from .schema import TaskCancelResponse, TaskCreate, TaskEventListResponse, TaskEventRead, TaskListResponse, TaskRead
 
-router = APIRouter(prefix="/api/v1/tasks", tags=["Tasks"], dependencies=[api_rate_limit("tasks")])
+router = APIRouter(prefix="/api/v1/tasks", tags=["Tasks"], dependencies=[api_rate_limit("tasks", fail_closed=True)])
 
 
 def to_task_read(task: Task) -> TaskRead:

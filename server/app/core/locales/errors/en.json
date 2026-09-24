@@ -3,5 +3,6 @@
   "database_unavailable": "Database is unavailable",
   "request_validation_failed": "Request validation failed",
   "http_error": "Request failed",
-  "rate_limited": "Too many requests. Please try again later."
+  "rate_limited": "Too many requests. Please try again later.",
+  "security_state_unavailable": "Security services are temporarily unavailable. Please try again later."
 }

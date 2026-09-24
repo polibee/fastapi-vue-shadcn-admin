@@ -13,7 +13,7 @@ from server.app.modules.users.model import User
 from .schema import UserBulkDelete, UserBulkDeleteResponse, UserCreate, UserListResponse, UserRead, UserRolesUpdate
 from .service import DuplicateUserError, InvalidRoleError, UserService
 
-router = APIRouter(prefix="/api/v1/users", tags=["Users"], dependencies=[api_rate_limit("users")])
+router = APIRouter(prefix="/api/v1/users", tags=["Users"], dependencies=[api_rate_limit("users", fail_closed=True)])
 
 
 def ensure_data_scope(request: Request, actor: User, user_id: int) -> None:

@@ -64,3 +64,20 @@ async def test_api_rate_limit_dependency_returns_retry_after(monkeypatch) -> Non
 
     assert response.status_code == 429
     assert response.headers["Retry-After"] == "45"
+
+
+@pytest.mark.asyncio
+async def test_api_rate_limit_can_fail_closed_when_redis_is_unavailable(monkeypatch) -> None:
+    import server.app.core.rate_limit as rate_limit_module
+    from server.app.core.config import get_settings
+
+    monkeypatch.setattr(rate_limit_module, "redis_client", None)
+    monkeypatch.setattr(get_settings(), "environment", "production")
+    app = FastAPI()
+    app.add_api_route("/writes", lambda: {"ok": True}, dependencies=[api_rate_limit("writes", fail_closed=True)])
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        response = await client.get("/writes")
+
+    assert response.status_code == 503
+    assert response.json()["detail"]["code"] == "security_state_unavailable"

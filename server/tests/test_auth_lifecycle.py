@@ -36,6 +36,21 @@ async def test_refresh_token_can_be_rotated_and_revoked(monkeypatch) -> None:
 
 
 @pytest.mark.asyncio
+async def test_token_store_does_not_fail_open_when_redis_is_missing(monkeypatch):
+    import server.app.core.auth_tokens as auth_tokens_module
+
+    monkeypatch.setattr(auth_tokens_module, "redis_client", None)
+    monkeypatch.setattr(auth_tokens_module, "get_settings", lambda: type("Settings", (), {"environment": "production"})())
+    store = auth_tokens_module.RedisTokenStore()
+
+    with pytest.raises(auth_tokens_module.RedisSecurityStateUnavailable):
+        await store.is_revoked("token-id")
+
+    with pytest.raises(auth_tokens_module.RedisSecurityStateUnavailable):
+        await store.revoke("token-id", 60)
+
+
+@pytest.mark.asyncio
 async def test_login_returns_refresh_token_and_refresh_endpoint_rotates(session, monkeypatch):
     store = FakeTokenStore()
     monkeypatch.setattr("server.app.core.auth_tokens.token_store", store)

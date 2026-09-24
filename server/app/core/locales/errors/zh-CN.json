@@ -3,5 +3,6 @@
   "database_unavailable": "数据库当前不可用",
   "request_validation_failed": "请求参数校验失败",
   "http_error": "请求处理失败",
-  "rate_limited": "请求过于频繁，请稍后再试。"
+  "rate_limited": "请求过于频繁，请稍后再试。",
+  "security_state_unavailable": "安全服务暂时不可用，请稍后再试。"
 }

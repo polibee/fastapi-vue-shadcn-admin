@@ -55,7 +55,7 @@ class RedisRateLimiter:
         return count
 
 
-def api_rate_limit(resource: str):
+def api_rate_limit(resource: str, *, fail_closed: bool = False):
     async def dependency(request: Request) -> None:
         settings = get_settings()
         policy = RateLimitPolicy("api", settings.api_rate_limit, settings.api_rate_window_seconds)
@@ -71,6 +71,8 @@ def api_rate_limit(resource: str):
         except RateLimitExceeded as error:
             raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, headers={"Retry-After": str(error.retry_after)}, detail={"code": "rate_limited", "message": translate("errors", "rate_limited", locale_from_request(request))}) from error
         except RateLimitUnavailable:
+            if fail_closed and settings.environment.lower() == "production":
+                raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail={"code": "security_state_unavailable", "message": translate("errors", "security_state_unavailable", locale_from_request(request))})
             return
 
     return Depends(dependency)

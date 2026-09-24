@@ -3,6 +3,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from server.app.core.auth import create_access_token, create_refresh_token, decode_access_token, decode_token, revoke_refresh_token, verify_password
+from server.app.core.auth_tokens import RedisSecurityStateUnavailable
 from server.app.core.cache.redis import redis_client
 from server.app.core.config import get_settings
 from server.app.core.rate_limit import RateLimitExceeded, RateLimitUnavailable, RateLimitPolicy, RedisRateLimiter
@@ -54,6 +55,8 @@ async def login(request: Request, payload: LoginRequest, session: AsyncSession =
             detail={"code": "login_rate_limited", "message": translate("modules/auth", "login_rate_limited", locale_from_request(request))},
         ) from error
     except RateLimitUnavailable:
+        if get_settings().environment.lower() == "production":
+            raise HTTPException(status_code=503, detail={"code": "security_state_unavailable", "message": translate("errors", "security_state_unavailable", locale_from_request(request))})
         pass
     user = await UserRepository(session).get_by_username(payload.username)
     if user is None or not verify_password(payload.password, user.password_hash):
@@ -70,6 +73,8 @@ async def refresh(request: Request, payload: RefreshRequest, session: AsyncSessi
             raise ValueError("inactive user")
         await revoke_refresh_token(payload.refresh_token)
         return TokenResponse(access_token=create_access_token(str(user.id)), refresh_token=create_refresh_token(str(user.id)))
+    except RedisSecurityStateUnavailable:
+        raise HTTPException(status_code=503, detail={"code": "security_state_unavailable", "message": translate("errors", "security_state_unavailable", locale_from_request(request))})
     except (KeyError, TypeError, ValueError):
         raise auth_error(request, "invalid_refresh_token")
 
@@ -78,6 +83,8 @@ async def refresh(request: Request, payload: RefreshRequest, session: AsyncSessi
 async def revoke(request: Request, payload: RevokeRequest) -> Response:
     try:
         await revoke_refresh_token(payload.refresh_token)
+    except RedisSecurityStateUnavailable:
+        raise HTTPException(status_code=503, detail={"code": "security_state_unavailable", "message": translate("errors", "security_state_unavailable", locale_from_request(request))})
     except ValueError:
         raise auth_error(request, "invalid_refresh_token")
     return Response(status_code=status.HTTP_204_NO_CONTENT)
