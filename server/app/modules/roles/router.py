@@ -8,7 +8,7 @@ from server.app.core.i18n import locale_from_request, translate
 from server.app.core.permissions import require_permission
 from server.app.core.rate_limit import api_rate_limit
 from server.app.modules.users.model import User
-from .schema import RoleBulkDelete, RoleBulkDeleteResponse, RoleCreate, RoleDataScopeUpdate, RoleListResponse, RolePermissionsUpdate, RoleRead
+from .schema import RoleBulkDelete, RoleBulkDeleteResponse, RoleCreate, RoleDataScopeUpdate, RoleListResponse, RolePermissionsUpdate, RoleRead, RoleUpdate
 from .service import DuplicateRoleError, InvalidDataScopeError, InvalidPermissionError, RoleService
 
 router = APIRouter(prefix="/api/v1/roles", tags=["Roles"], dependencies=[api_rate_limit("roles")])
@@ -42,6 +42,24 @@ async def create_role(request: Request, payload: RoleCreate, session: AsyncSessi
 
         locale = locale_from_request(request)
         raise HTTPException(status_code=409, detail={"code": error.code, "message": translate("modules/roles", error.code, locale)}) from error
+
+
+@router.put("/{role_id}", response_model=RoleRead)
+async def update_role(role_id: int, request: Request, payload: RoleUpdate, session: AsyncSession = Depends(get_session), actor: User = Depends(require_permission("roles.update"))) -> RoleRead:
+    try:
+        role = await RoleService(session).update(role_id, **payload.model_dump())
+    except DuplicateRoleError as error:
+        locale = locale_from_request(request)
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=409, detail={"code": error.code, "message": translate("modules/roles", error.code, locale)}) from error
+    if role is None:
+        locale = locale_from_request(request)
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=404, detail={"code": "role_not_found", "message": translate("modules/roles", "role_not_found", locale)})
+    await record_audit(session, request, actor.id, "update", "role", role.id)
+    return to_role_read(role)
 
 
 @router.put("/{role_id}/permissions", response_model=RoleRead)

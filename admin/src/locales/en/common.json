@@ -20,6 +20,11 @@
     "previous": "Previous",
     "next": "Next",
     "edit": "Edit",
+    "show": "Show",
+    "hide": "Hide",
+    "generate": "Generate",
+    "copy": "Copy",
+    "copied": "Copied",
     "delete": "Delete",
     "repository": "GitHub repository",
     "notFound": {

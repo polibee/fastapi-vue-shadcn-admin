@@ -30,6 +30,15 @@ class RoleRepository:
         await self.session.flush()
         return role
 
+    async def update(self, role_id: int, **values) -> Role | None:
+        role = await self.get_by_id(role_id)
+        if role is None:
+            return None
+        for key, value in values.items():
+            setattr(role, key, value)
+        await self.session.flush()
+        return role
+
     async def delete(self, role_id: int) -> bool:
         role = await self.get_by_id(role_id)
         if role is None:

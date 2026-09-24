@@ -19,7 +19,7 @@ async def test_resource_manifest_cache_falls_back_to_definitions(monkeypatch):
     manifests = await registry.list_resource_manifests_cached()
 
     assert {manifest["name"] for manifest in manifests} == {"users", "roles", "departments"}
-    assert writes == [("admin:resource-manifests:v3", 300)]
+    assert writes == [("admin:resource-manifests:v4", 300)]
 
 
 def test_resource_manifest_is_versioned_json_without_runtime_objects():

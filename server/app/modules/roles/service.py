@@ -38,6 +38,17 @@ class RoleService:
             await self.session.rollback()
             raise DuplicateRoleError from error
 
+    async def update(self, role_id: int, **values) -> Role | None:
+        existing = await self.repository.get_by_id(role_id)
+        if existing is None:
+            return None
+        duplicate = await self.repository.get_by_name(values["name"])
+        if duplicate is not None and duplicate.id != role_id:
+            raise DuplicateRoleError
+        role = await self.repository.update(role_id, **values)
+        await self.session.commit()
+        return await self.repository.get_by_id(role_id)
+
     async def delete(self, role_id: int) -> bool:
         deleted = await self.repository.delete(role_id)
         if deleted:
@@ -52,8 +63,11 @@ class RoleService:
         if role is None:
             return None
         normalized = sorted(set(code.strip() for code in codes if code.strip()))
-        permissions = list((await self.session.scalars(select(Permission).where(Permission.code.in_(normalized)))).all())
-        if len(permissions) != len(normalized):
+        if role.name == "administrator":
+            permissions = list((await self.session.scalars(select(Permission).order_by(Permission.code.asc()))).all())
+        else:
+            permissions = list((await self.session.scalars(select(Permission).where(Permission.code.in_(normalized)))).all())
+        if role.name != "administrator" and len(permissions) != len(normalized):
             raise InvalidPermissionError
         role.permissions = permissions
         await self.session.commit()

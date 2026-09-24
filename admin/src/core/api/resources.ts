@@ -18,6 +18,7 @@ import {
   listUsersApiV1UsersGet,
   retryTaskApiV1TasksTaskIdRetryPost,
   updateDepartmentApiV1DepartmentsDepartmentIdPut,
+  updateRoleApiV1RolesRoleIdPut,
   updateRolePermissionsApiV1RolesRoleIdPermissionsPut,
   updateRoleDataScopeApiV1RolesRoleIdDataScopePut,
   updateUserRolesApiV1UsersUserIdRolesPut,
@@ -63,6 +64,12 @@ export async function createRole(input: { name: string; description: string }): 
     responseStyle: 'data',
     throwOnError: true,
   })
+  return result as unknown as RoleRead
+}
+
+export async function updateRole(roleId: number, input: { name: string; description: string }): Promise<RoleRead> {
+  client.setConfig({ baseUrl: '' })
+  const result = await updateRoleApiV1RolesRoleIdPut({ auth: getAccessToken() ?? undefined, path: { role_id: roleId }, body: { name: input.name, description: input.description || null }, responseStyle: 'data', throwOnError: true })
   return result as unknown as RoleRead
 }
 

@@ -1,4 +1,4 @@
-import { bulkDeleteRoles, bulkDeleteUsers, createRole, createUser, deleteRole, deleteUser, fetchRoles, fetchUsers } from '@/core/api/resources'
+import { bulkDeleteRoles, bulkDeleteUsers, createRole, createUser, deleteRole, deleteUser, fetchRoles, fetchUsers, updateRole } from '@/core/api/resources'
 import type { RoleListResponse, RoleRead, UserListResponse, UserRead } from '@/core/api/generated/client'
 
 export type ResourceListOptions = { offset?: number; limit?: number; search?: string; isActive?: boolean; sortBy?: string; sortOrder?: 'asc' | 'desc' }
@@ -36,6 +36,7 @@ resourceAdapterRegistry.register<UserRead, { username: string; email: string; pa
 resourceAdapterRegistry.register<RoleRead, { name: string; description: string }>('roles', {
   list: fetchRoles,
   create: createRole,
+  update: updateRole,
   remove: deleteRole,
   bulkRemove: bulkDeleteRoles,
 })

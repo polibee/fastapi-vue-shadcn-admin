@@ -11,6 +11,11 @@ class RoleCreate(BaseModel):
     data_scope: Literal["all", "self"] = "all"
 
 
+class RoleUpdate(BaseModel):
+    name: str = Field(min_length=1, max_length=64)
+    description: str | None = Field(default=None, max_length=255)
+
+
 class RolePermissionsUpdate(BaseModel):
     codes: list[str] = Field(default_factory=list, max_length=100)
 

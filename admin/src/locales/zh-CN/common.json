@@ -19,7 +19,12 @@
     "languageEn": "English",
     "previous": "Previous",
     "next": "Next",
-    "edit": "Edit",
+    "edit": "编辑",
+    "show": "显示",
+    "hide": "隐藏",
+    "generate": "自动生成",
+    "copy": "复制",
+    "copied": "已复制",
     "delete": "Delete",
     "repository": "GitHub 仓库",
     "notFound": {

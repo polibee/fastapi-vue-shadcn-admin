@@ -35,8 +35,7 @@ ROLE_RESOURCE = ResourceDefinition(
         FieldDefinition("description", FieldType.text, "roles.descriptionField", searchable=True),
     ),
     actions=(
-        ActionDefinition("edit_permissions", "roles.editPermissions", "roles.update", "ghost", "edit"),
-        ActionDefinition("edit_scope", "roles.editScope", "roles.update", "ghost", "edit"),
+        ActionDefinition("edit", "common.edit", "roles.update", "ghost", "edit"),
         ActionDefinition("delete", "roles.delete", "roles.delete", "ghost", "delete"),
     ),
     bulk_actions=(BulkActionDefinition("delete_selected", "roles.delete", "roles.delete", "delete"),),
