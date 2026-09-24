@@ -56,6 +56,7 @@ The old root admin paths such as `/users`, `/roles`, and `/settings` are intenti
 
 - [AI-friendly integration guide](docs/integration-development-guide.md)
 - [Chinese integration guide](docs/对接开发指南.md)
+- [Production deployment, backup, restore and rollback](docs/production-deployment-and-rollback.md)
 - [MIT License](LICENSE)
 
 ## Project conventions
