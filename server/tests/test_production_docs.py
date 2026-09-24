@@ -25,3 +25,10 @@ def test_postgres_rehearsal_is_explicit_and_never_uses_sqlite():
     assert "TEST_DATABASE_URL" in rehearsal
     assert "must point to PostgreSQL" in rehearsal
     assert '"-m", "alembic", "upgrade", "head"' in rehearsal
+
+
+def test_failure_drill_covers_redis_and_worker_scheduler_recovery():
+    drills = (ROOT / "server/tests/test_operational_failure_drills.py").read_text(encoding="utf-8")
+    assert "create_worker" in drills
+    assert "scheduled_only" in drills
+    assert "redis unavailable" in drills
