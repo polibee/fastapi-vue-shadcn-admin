@@ -60,18 +60,25 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "doctor":
         from server.app.core.config import get_settings
+        from server.app.core.production_guard import ProductionConfigurationError, validate_production_settings
         from server.app.core.telemetry import metrics
 
         health = asyncio.run(_health_payload())
         settings = get_settings()
+        production_issues: list[str] = []
+        try:
+            validate_production_settings(settings)
+        except ProductionConfigurationError as error:
+            production_issues.append(error.code)
         payload = {
-            "status": "ok" if health["status"] == "ok" else "degraded",
+            "status": "ok" if health["status"] == "ok" and not production_issues else "degraded",
             "health": health,
             "modules": builtin_registry().names(),
             "telemetry": metrics.snapshot(),
             "security": {
                 "jwt_secret_configured": settings.jwt_secret != "development-only-change-me",
                 "trusted_hosts_enabled": settings.trusted_hosts_enabled,
+                "production_issues": production_issues,
             },
         }
         print(json.dumps(payload, ensure_ascii=False))

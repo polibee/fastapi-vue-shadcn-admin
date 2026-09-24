@@ -28,12 +28,14 @@ from server.app.core.settings.router import router as settings_router
 from server.app.core.introspection_router import router as introspection_router
 from server.app.core.generator.router import router as generator_router
 from server.app.core.i18n import locale_from_request, translate
+from server.app.core.production_guard import validate_production_settings
 
 settings = get_settings()
 
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
+    validate_production_settings(settings)
     application.state.module_registry.boot_all()
     yield
 
