@@ -1,4 +1,5 @@
 import type { ResourceManifest } from '@/core/resources/types'
+import { adminPath } from '@/router/paths'
 
 export type NavigationIcon = 'activity' | 'dashboard' | 'tasks' | 'users' | 'roles' | 'audit' | 'settings' | 'database' | 'generator' | 'modules' | 'api' | 'permissions'
 
@@ -15,24 +16,24 @@ export type NavigationRegistry = {
 }
 
 const staticWorkspace: NavigationEntry[] = [
-  { to: '/', labelKey: 'nav.overview', icon: 'dashboard' },
-  { to: '/activity', labelKey: 'nav.activity', icon: 'activity' },
-  { to: '/tasks', labelKey: 'nav.tasks', icon: 'tasks', permission: 'tasks.view' },
+  { to: adminPath('/'), labelKey: 'nav.overview', icon: 'dashboard' },
+  { to: adminPath('/activity'), labelKey: 'nav.activity', icon: 'activity' },
+  { to: adminPath('/tasks'), labelKey: 'nav.tasks', icon: 'tasks', permission: 'tasks.view' },
 ]
 
 const staticResources: NavigationEntry[] = [
-  { to: '/users', labelKey: 'nav.users', icon: 'users', permission: 'users.view' },
-  { to: '/roles', labelKey: 'nav.roles', icon: 'roles', permission: 'roles.view' },
+  { to: adminPath('/users'), labelKey: 'nav.users', icon: 'users', permission: 'users.view' },
+  { to: adminPath('/roles'), labelKey: 'nav.roles', icon: 'roles', permission: 'roles.view' },
 ]
 
 const staticManage: NavigationEntry[] = [
-  { to: '/audit', labelKey: 'nav.audit', icon: 'audit', permission: 'audit.view' },
-  { to: '/introspection', labelKey: 'nav.introspection', icon: 'database', permission: 'users.view' },
-  { to: '/generator', labelKey: 'nav.generator', icon: 'generator', permission: 'users.view' },
-  { to: '/modules', labelKey: 'nav.modules', icon: 'modules', permission: 'users.view' },
-  { to: '/openapi-browser', labelKey: 'nav.apiExplorer', icon: 'api', permission: 'users.view' },
-  { to: '/permissions', labelKey: 'nav.permissions', icon: 'permissions', permission: 'roles.view' },
-  { to: '/settings', labelKey: 'nav.settings', icon: 'settings' },
+  { to: adminPath('/audit'), labelKey: 'nav.audit', icon: 'audit', permission: 'audit.view' },
+  { to: adminPath('/introspection'), labelKey: 'nav.introspection', icon: 'database', permission: 'users.view' },
+  { to: adminPath('/generator'), labelKey: 'nav.generator', icon: 'generator', permission: 'users.view' },
+  { to: adminPath('/modules'), labelKey: 'nav.modules', icon: 'modules', permission: 'users.view' },
+  { to: adminPath('/openapi-browser'), labelKey: 'nav.apiExplorer', icon: 'api', permission: 'users.view' },
+  { to: adminPath('/permissions'), labelKey: 'nav.permissions', icon: 'permissions', permission: 'roles.view' },
+  { to: adminPath('/settings'), labelKey: 'nav.settings', icon: 'settings' },
 ]
 
 function manifestEntry(manifest: ResourceManifest): NavigationEntry {

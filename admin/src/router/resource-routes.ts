@@ -4,6 +4,7 @@ import RolesPage from '@/components/admin/RolesPage.vue'
 import UsersPage from '@/components/admin/UsersPage.vue'
 import GenericResourcePage from '@/components/admin/GenericResourcePage.vue'
 import type { LocaleNamespace } from '@/locales'
+import { adminPath } from './paths'
 
 export type ResourceRouteRegistration = {
   name: string
@@ -15,9 +16,9 @@ export type ResourceRouteRegistration = {
 }
 
 export const resourceRouteRegistry: ResourceRouteRegistration[] = [
-  { name: 'users', path: '/users', permission: 'users.view', namespaces: ['common', 'shell', 'users'], component: UsersPage },
-  { name: 'roles', path: '/roles', permission: 'roles.view', namespaces: ['common', 'shell', 'roles'], component: RolesPage },
-  { name: 'departments', path: '/departments', permission: 'departments.view', namespaces: ['common', 'shell', 'users', 'roles', 'departments'], component: GenericResourcePage, props: { resourceName: 'departments', namespace: 'departments' } },
+  { name: 'users', path: adminPath('/users'), permission: 'users.view', namespaces: ['common', 'shell', 'users'], component: UsersPage },
+  { name: 'roles', path: adminPath('/roles'), permission: 'roles.view', namespaces: ['common', 'shell', 'roles'], component: RolesPage },
+  { name: 'departments', path: adminPath('/departments'), permission: 'departments.view', namespaces: ['common', 'shell', 'users', 'roles', 'departments'], component: GenericResourcePage, props: { resourceName: 'departments', namespace: 'departments' } },
 ]
 
 export const resourceRoutes: RouteRecordRaw[] = resourceRouteRegistry.map((resource) => ({
