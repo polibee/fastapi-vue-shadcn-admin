@@ -3,7 +3,9 @@ import asyncio
 from sqlalchemy import insert, select
 
 from server.app.core.auth import hash_password
+from server.app.core.config import get_settings
 from server.app.core.database.session import SessionFactory
+from server.app.core.production_guard import ProductionConfigurationError
 from server.app.modules.permissions.model import Permission, role_permissions
 from server.app.modules.roles.model import Role
 from server.app.modules.users.model import User, user_roles
@@ -15,6 +17,8 @@ DEMO_PERMISSIONS = ("users.view", "users.create", "users.update", "users.delete"
 
 
 async def seed_demo_admin() -> None:
+    if get_settings().environment.lower() == "production":
+        raise ProductionConfigurationError("demo_seed_disabled_in_production", ("ENVIRONMENT",))
     if SessionFactory is None:
         raise RuntimeError("DATABASE_URL must be configured before seeding the demo admin")
 

@@ -21,7 +21,7 @@ const loading = ref(false)
 const errorMessage = ref('')
 const errorCode = ref('')
 const copiedField = ref<'username' | 'password' | null>(null)
-const isDevelopment = import.meta.env.DEV
+const isDevelopment = import.meta.env.DEV && import.meta.env.VITE_DEMO_LOGIN_ENABLED !== 'false'
 
 async function changeLocale(nextLocale: 'zh-CN' | 'en') {
   await setLocale(nextLocale, ['common', 'shell', 'auth', 'users', 'roles'])
