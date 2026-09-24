@@ -57,6 +57,7 @@ pnpm dev -- --host 0.0.0.0
 - [AI 友好对接开发指南](docs/对接开发指南.md)
 - [English integration guide](docs/integration-development-guide.md)
 - [生产部署、备份、恢复与回滚](docs/生产部署与回滚.md)
+- [生产验收清单](docs/生产验收清单.md)
 - [MIT License](LICENSE)
 
 ## 目录约定
