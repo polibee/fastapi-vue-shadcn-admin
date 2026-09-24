@@ -1,5 +1,5 @@
 import { client } from './generated/client/client.gen'
-import { healthDetailApiV1HealthDetailGet } from './generated/client'
+import { healthApiV1HealthGet, healthDetailApiV1HealthDetailGet } from './generated/client'
 
 export type HealthStatus = 'ok' | 'degraded' | 'unavailable';
 
@@ -39,6 +39,12 @@ export function normalizeHealthPayload(payload: HealthPayload): HealthSummary {
 }
 
 export async function fetchHealth(signal?: AbortSignal): Promise<HealthSummary> {
+  client.setConfig({ baseUrl: '' });
+  const payload = await healthApiV1HealthGet({ signal, throwOnError: true, responseStyle: 'data' });
+  return normalizeHealthPayload(payload as HealthPayload);
+}
+
+export async function fetchHealthDetail(signal?: AbortSignal): Promise<HealthSummary> {
   client.setConfig({ baseUrl: '' });
   const payload = await healthDetailApiV1HealthDetailGet({ signal, throwOnError: true, responseStyle: 'data' });
   return normalizeHealthPayload(payload as HealthPayload);

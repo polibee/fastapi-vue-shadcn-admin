@@ -1,4 +1,16 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+const { healthApi, detailApi, setConfig } = vi.hoisted(() => ({
+  healthApi: vi.fn(async () => ({ status: 'degraded', database: { status: 'up' }, redis: { status: 'down' } })),
+  detailApi: vi.fn(async () => ({ status: 'ok', database: { status: 'up' }, redis: { status: 'up' }, tasks: { pending: 7 } })),
+  setConfig: vi.fn(),
+}))
+
+vi.mock('./generated/client', () => ({
+  healthApiV1HealthGet: healthApi,
+  healthDetailApiV1HealthDetailGet: detailApi,
+}))
+vi.mock('./generated/client/client.gen', () => ({ client: { setConfig } }))
 import { normalizeHealthPayload } from './health';
 
 describe('normalizeHealthPayload', () => {
@@ -20,3 +32,13 @@ describe('normalizeHealthPayload', () => {
     });
   });
 });
+
+describe('health adapters', () => {
+  it('uses the readiness-compatible health endpoint for shared page status', async () => {
+    const { fetchHealth } = await import('./health')
+
+    await expect(fetchHealth()).resolves.toMatchObject({ status: 'degraded', database: 'ok', redis: 'unavailable' })
+    expect(healthApi).toHaveBeenCalledOnce()
+    expect(detailApi).not.toHaveBeenCalled()
+  })
+})

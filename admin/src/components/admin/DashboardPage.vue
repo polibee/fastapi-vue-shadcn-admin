@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { dashboardWidgetRegistry } from '@/core/dashboard-registry'
-import { fetchHealth, type HealthStatus, type HealthSummary } from '@/core/api/health'
+import { fetchHealth, fetchHealthDetail, type HealthStatus, type HealthSummary } from '@/core/api/health'
 import AdminShell from './AdminShell.vue'
 
 const { t } = useI18n()
@@ -40,7 +40,7 @@ function syncedLabel() {
 async function refreshHealth() {
   loading.value = true
   try {
-    health.value = await fetchHealth()
+    health.value = await fetchHealthDetail().catch(() => fetchHealth())
     lastSyncedAt.value = new Date()
     syncFailed.value = false
   } catch {
