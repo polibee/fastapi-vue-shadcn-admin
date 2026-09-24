@@ -46,3 +46,23 @@ def test_resource_registry_rejects_unknown_resource():
         get_resource_manifest("unknown")
 
 
+def test_resource_contract_separates_admin_route_and_api_base():
+    from server.app.core.resources.definitions import RESOURCE_DEFINITIONS
+
+    departments = RESOURCE_DEFINITIONS["departments"]
+    assert departments.route == "/admin/departments"
+    assert departments.api_base == "/api/v1/departments"
+
+
+def test_resource_contract_rejects_mixed_route_namespaces():
+    from server.app.core.resources.contract import ResourceDefinition, validate_route_boundary
+
+    invalid_ui_route = ResourceDefinition(name="demo", label="demo", label_plural="demo", api_base="/api/v1/demo", route="/demo", permissions={})
+    invalid_api_base = ResourceDefinition(name="demo", label="demo", label_plural="demo", api_base="/demo", route="/admin/demo", permissions={})
+
+    with pytest.raises(ValueError, match="UI route"):
+        validate_route_boundary(invalid_ui_route)
+    with pytest.raises(ValueError, match="API base"):
+        validate_route_boundary(invalid_api_base)
+
+

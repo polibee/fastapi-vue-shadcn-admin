@@ -68,13 +68,22 @@ class ResourceDefinition:
     route: str | None = None
 
 
+def validate_route_boundary(resource: ResourceDefinition) -> None:
+    route = resource.route or f"/admin/{resource.name}"
+    if not route.startswith("/admin/"):
+        raise ValueError(f"resource UI route must start with /admin/: {route}")
+    if not resource.api_base.startswith("/api/v1/"):
+        raise ValueError(f"resource API base must start with /api/v1/: {resource.api_base}")
+
+
 def compile_manifest(resource: ResourceDefinition) -> dict[str, Any]:
+    validate_route_boundary(resource)
     return {
         "schemaVersion": "1.0",
         "name": resource.name,
         "label": resource.label,
         "labelPlural": resource.label_plural,
-        "routes": {"list": resource.route or f"/{resource.name}"},
+        "routes": {"list": resource.route or f"/admin/{resource.name}"},
         "api": {"base": resource.api_base},
         "permissions": resource.permissions,
         "features": {("import" if key == "import_" else key): value for key, value in asdict(resource.features).items()},

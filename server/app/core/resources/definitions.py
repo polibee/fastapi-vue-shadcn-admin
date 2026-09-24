@@ -6,7 +6,7 @@ USER_RESOURCE = ResourceDefinition(
     label="users.label",
     label_plural="users.labelPlural",
     api_base="/api/v1/users",
-    route="/users",
+    route="/admin/users",
     permissions={"view": "users.view", "create": "users.create", "update": "users.update", "delete": "users.delete"},
     fields=(
         FieldDefinition("id", FieldType.text, "users.id", required=True, nullable=False, readonly=True, sortable=True),
@@ -27,7 +27,7 @@ ROLE_RESOURCE = ResourceDefinition(
     label="roles.label",
     label_plural="roles.labelPlural",
     api_base="/api/v1/roles",
-    route="/roles",
+    route="/admin/roles",
     permissions={"view": "roles.view", "create": "roles.create", "update": "roles.update", "delete": "roles.delete"},
     fields=(
         FieldDefinition("id", FieldType.text, "roles.id", required=True, nullable=False, readonly=True, sortable=True),
@@ -49,7 +49,7 @@ DEPARTMENT_RESOURCE = ResourceDefinition(
     label="departments.label",
     label_plural="departments.labelPlural",
     api_base="/api/v1/departments",
-    route="/departments",
+    route="/admin/departments",
     permissions={"view": "departments.view", "create": "departments.create", "update": "departments.update", "delete": "departments.delete"},
     fields=(
         FieldDefinition("id", FieldType.text, "departments.id", required=True, nullable=False, readonly=True, sortable=True),
