@@ -6,6 +6,8 @@ This is the implementation guide for integrating a new business project with the
 
 The project provides reusable administration infrastructure: authentication, JWT, RBAC, data scopes, audit logs, health checks, task queues, module registration, OpenAPI/TypeScript SDK, JSON localization, and generic resource pages.
 
+Production requires a non-default JWT secret, PostgreSQL, Redis, explicit Trusted Hosts, disabled public API docs, and disabled demo login. Production responses include a restrictive CSP; the current SPA bearer-token storage is a documented deployment trade-off, and same-origin hardened deployments should use Secure, HttpOnly, SameSite cookies.
+
 Recommended stack:
 
 - Backend: FastAPI, SQLAlchemy Async, Alembic, PostgreSQL, Redis

@@ -39,6 +39,20 @@ async def test_security_headers_are_present() -> None:
 
 
 @pytest.mark.asyncio
+async def test_production_security_headers_include_csp_and_https_hsts(monkeypatch) -> None:
+    from server.app.core.config import get_settings
+
+    settings = get_settings()
+    monkeypatch.setattr(settings, "environment", "production")
+    async with AsyncClient(transport=ASGITransport(app=build_app()), base_url="https://test") as client:
+        response = await client.get("/public")
+
+    assert response.headers["Content-Security-Policy"] == "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+    assert "max-age=" in response.headers["Strict-Transport-Security"]
+    assert "unsafe-eval" not in response.headers["Content-Security-Policy"]
+
+
+@pytest.mark.asyncio
 async def test_cors_preflight_is_configured() -> None:
     async with AsyncClient(transport=ASGITransport(app=build_app()), base_url="http://test") as client:
         response = await client.options(
