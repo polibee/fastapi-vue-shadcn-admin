@@ -2,5 +2,7 @@
   "role_already_exists": "Role already exists",
   "role_not_found": "Role not found",
   "permission_not_found": "One or more permissions do not exist",
-  "data_scope_not_supported": "This data scope is not supported"
+  "data_scope_not_supported": "This data scope is not supported",
+  "permission_not_found": "Permission not found",
+  "system_role_protected": "System roles cannot be modified or deleted"
 }

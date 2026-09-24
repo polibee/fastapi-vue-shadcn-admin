@@ -27,6 +27,9 @@
     "copied": "已复制",
     "delete": "Delete",
     "repository": "GitHub 仓库",
+    "back": "返回",
+    "cancel": "取消",
+    "loading": "加载中…",
     "notFound": {
       "title": "页面不存在",
       "description": "请检查地址，或从后台入口重新开始。"

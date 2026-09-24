@@ -20,6 +20,12 @@ async def list_departments(offset: int = Query(0, ge=0), limit: int = Query(20, 
     items, total = await DepartmentService(session).list(offset, limit, search, is_active, sort_by, sort_order)
     return DepartmentListResponse(items=[to_department_read(item) for item in items], total=total, offset=offset, limit=limit)
 
+@router.get("/{department_id}", response_model=DepartmentRead)
+async def read_department(department_id: int, request: Request, session: AsyncSession = Depends(get_session), _: User = Depends(require_permission("departments.view"))):
+    department = await DepartmentService(session).get(department_id)
+    if department is None: raise error(request, "department_not_found", 404)
+    return to_department_read(department)
+
 @router.post("", response_model=DepartmentRead, status_code=201)
 async def create_department(request: Request, payload: DepartmentCreate, session: AsyncSession = Depends(get_session), actor: User = Depends(require_permission("departments.create"))):
     try: department = await DepartmentService(session).create(**payload.model_dump())

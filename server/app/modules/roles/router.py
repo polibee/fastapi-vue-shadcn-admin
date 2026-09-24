@@ -9,7 +9,7 @@ from server.app.core.permissions import require_permission
 from server.app.core.rate_limit import api_rate_limit
 from server.app.modules.users.model import User
 from .schema import RoleBulkDelete, RoleBulkDeleteResponse, RoleCreate, RoleDataScopeUpdate, RoleListResponse, RolePermissionsUpdate, RoleRead, RoleUpdate
-from .service import DuplicateRoleError, InvalidDataScopeError, InvalidPermissionError, RoleService
+from .service import DuplicateRoleError, InvalidDataScopeError, InvalidPermissionError, ProtectedRoleError, RoleService
 
 router = APIRouter(prefix="/api/v1/roles", tags=["Roles"], dependencies=[api_rate_limit("roles")])
 
@@ -58,12 +58,13 @@ async def create_role(request: Request, payload: RoleCreate, session: AsyncSessi
 @router.put("/{role_id}", response_model=RoleRead)
 async def update_role(role_id: int, request: Request, payload: RoleUpdate, session: AsyncSession = Depends(get_session), actor: User = Depends(require_permission("roles.update"))) -> RoleRead:
     try:
-        role = await RoleService(session).update(role_id, **payload.model_dump())
-    except DuplicateRoleError as error:
+        role = await RoleService(session).update_all(role_id, **payload.model_dump())
+    except (DuplicateRoleError, InvalidDataScopeError, InvalidPermissionError, ProtectedRoleError) as error:
         locale = locale_from_request(request)
         from fastapi import HTTPException
 
-        raise HTTPException(status_code=409, detail={"code": error.code, "message": translate("modules/roles", error.code, locale)}) from error
+        status_code = 409 if isinstance(error, (DuplicateRoleError, ProtectedRoleError)) else 400
+        raise HTTPException(status_code=status_code, detail={"code": error.code, "message": translate("modules/roles", error.code, locale)}) from error
     if role is None:
         locale = locale_from_request(request)
         from fastapi import HTTPException
@@ -120,7 +121,14 @@ async def bulk_delete_roles(request: Request, payload: RoleBulkDelete, session: 
 
 @router.delete("/{role_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_role(role_id: int, request: Request, session: AsyncSession = Depends(get_session), actor: User = Depends(require_permission("roles.delete"))) -> Response:
-    if not await RoleService(session).delete(role_id):
+    try:
+        deleted = await RoleService(session).delete(role_id)
+    except ProtectedRoleError as error:
+        locale = locale_from_request(request)
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=409, detail={"code": error.code, "message": translate("modules/roles", error.code, locale)}) from error
+    if not deleted:
         locale = locale_from_request(request)
         from fastapi import HTTPException
 

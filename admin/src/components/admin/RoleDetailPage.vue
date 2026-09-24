@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { fetchRole, updateRole, updateRoleDataScope, updateRolePermissions } from '@/core/api/resources'
+import { fetchRole, updateRole } from '@/core/api/resources'
 import { loadPermissions } from '@/core/api/permissions'
 import { groupPermissions, type PermissionGroup } from '@/core/permissions/catalog'
 import type { PermissionRead, RoleRead } from '@/core/api/generated/client'
@@ -29,7 +29,7 @@ const permissionSearch = ref('')
 const loading = ref(true)
 const saving = ref(false)
 const error = ref(false)
-const permissionGroups = computed<PermissionGroup[]>(() => groupPermissions(permissions.value).map((group) => ({ ...group, items: group.items.filter((item) => item.code.toLowerCase().includes(permissionSearch.value.toLowerCase())) })).filter((group) => group.items.length))
+const permissionGroups = computed<PermissionGroup[]>(() => groupPermissions(permissions.value).map((group) => ({ ...group, name: t(`roles.permissionGroups.${group.name}`), items: group.items.filter((item) => item.code.toLowerCase().includes(permissionSearch.value.toLowerCase())) })).filter((group) => group.items.length))
 const visibleCodes = computed(() => permissionGroups.value.flatMap((group) => group.items.map((item) => item.code)))
 const administrator = computed(() => role.value?.name === 'administrator')
 const selectedCount = computed(() => selectedCodes.value.length)
@@ -43,7 +43,7 @@ function clearVisible() { if (!administrator.value) selectedCodes.value = select
 async function loadDetails() {
   loading.value = true; error.value = false
   try {
-    const id = Number(route.params.roleId)
+    const id = Number(route.params.id)
     const [loadedRole, permissionResult] = await Promise.all([fetchRole(id), loadPermissions()])
     role.value = loadedRole; name.value = loadedRole.name; description.value = loadedRole.description ?? ''; dataScope.value = loadedRole.data_scope ?? 'all'; permissions.value = permissionResult.items; selectedCodes.value = loadedRole.name === 'administrator' ? permissionResult.items.map((item) => item.code) : [...loadedRole.permissions]
   } catch { error.value = true } finally { loading.value = false }
@@ -52,7 +52,7 @@ async function loadDetails() {
 async function save() {
   if (!role.value) return
   saving.value = true; error.value = false
-  try { await updateRole(role.value.id, { name: name.value, description: description.value }); await updateRoleDataScope(role.value.id, dataScope.value); await updateRolePermissions(role.value.id, selectedCodes.value); await loadDetails() } catch { error.value = true } finally { saving.value = false }
+  try { await updateRole(role.value.id, { name: name.value, description: description.value, data_scope: dataScope.value, permissions: selectedCodes.value }); await loadDetails() } catch { error.value = true } finally { saving.value = false }
 }
 
 onMounted(loadDetails)

@@ -17,7 +17,7 @@ export interface ResourceManifest {
   name: string
   label: string
   labelPlural: string
-  routes: { list: string }
+  routes: { list: string; detail?: string }
   api: { base: string }
   permissions: Record<string, string>
   features: Record<string, boolean>

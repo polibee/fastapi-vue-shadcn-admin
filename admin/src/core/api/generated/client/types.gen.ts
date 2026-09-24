@@ -427,6 +427,14 @@ export type RoleUpdate = {
      * Description
      */
     description?: string | null;
+    /**
+     * Data Scope
+     */
+    data_scope?: 'all' | 'self';
+    /**
+     * Permissions
+     */
+    permissions?: Array<string>;
 };
 
 /**
@@ -1627,6 +1635,36 @@ export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses = {
 };
 
 export type DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponse = DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses[keyof DeleteDepartmentApiV1DepartmentsDepartmentIdDeleteResponses];
+
+export type ReadDepartmentApiV1DepartmentsDepartmentIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Department Id
+         */
+        department_id: number;
+    };
+    query?: never;
+    url: '/api/v1/departments/{department_id}';
+};
+
+export type ReadDepartmentApiV1DepartmentsDepartmentIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ReadDepartmentApiV1DepartmentsDepartmentIdGetError = ReadDepartmentApiV1DepartmentsDepartmentIdGetErrors[keyof ReadDepartmentApiV1DepartmentsDepartmentIdGetErrors];
+
+export type ReadDepartmentApiV1DepartmentsDepartmentIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DepartmentRead;
+};
+
+export type ReadDepartmentApiV1DepartmentsDepartmentIdGetResponse = ReadDepartmentApiV1DepartmentsDepartmentIdGetResponses[keyof ReadDepartmentApiV1DepartmentsDepartmentIdGetResponses];
 
 export type UpdateDepartmentApiV1DepartmentsDepartmentIdPutData = {
     body: DepartmentUpdate;

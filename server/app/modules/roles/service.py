@@ -19,6 +19,10 @@ class InvalidDataScopeError(Exception):
     code = "data_scope_not_supported"
 
 
+class ProtectedRoleError(Exception):
+    code = "system_role_protected"
+
+
 class RoleService:
     def __init__(self, session: AsyncSession):
         self.repository = RoleRepository(session)
@@ -45,6 +49,8 @@ class RoleService:
         existing = await self.repository.get_by_id(role_id)
         if existing is None:
             return None
+        if (existing.is_system or existing.name == "administrator") and values.get("name", existing.name) != existing.name:
+            raise ProtectedRoleError
         duplicate = await self.repository.get_by_name(values["name"])
         if duplicate is not None and duplicate.id != role_id:
             raise DuplicateRoleError
@@ -52,7 +58,39 @@ class RoleService:
         await self.session.commit()
         return await self.repository.get_by_id(role_id)
 
+    async def update_all(self, role_id: int, **values) -> Role | None:
+        role = await self.repository.get_by_id(role_id)
+        if role is None:
+            return None
+        if (role.is_system or role.name == "administrator") and values.get("name", role.name) != role.name:
+            raise ProtectedRoleError
+        duplicate = await self.repository.get_by_name(values.get("name", role.name))
+        if duplicate is not None and duplicate.id != role_id:
+            raise DuplicateRoleError
+        if values.get("data_scope") is not None and values["data_scope"] not in {"all", "self"}:
+            raise InvalidDataScopeError
+        permissions = None
+        if values.get("permissions") is not None or role.is_system or role.name == "administrator":
+            normalized = sorted(set(code.strip() for code in (values.get("permissions") or []) if code.strip()))
+            if role.is_system or role.name == "administrator":
+                permissions = list((await self.session.scalars(select(Permission).order_by(Permission.code.asc()))).all())
+            else:
+                permissions = list((await self.session.scalars(select(Permission).where(Permission.code.in_(normalized)))).all())
+                if len(permissions) != len(normalized):
+                    raise InvalidPermissionError
+        role.name = values.get("name", role.name)
+        role.description = values.get("description", role.description)
+        if values.get("data_scope") is not None:
+            role.data_scope = values["data_scope"]
+        if permissions is not None:
+            role.permissions = permissions
+        await self.session.commit()
+        return await self.repository.get_by_id(role_id)
+
     async def delete(self, role_id: int) -> bool:
+        role = await self.repository.get_by_id(role_id)
+        if role is not None and (role.is_system or role.name == "administrator"):
+            raise ProtectedRoleError
         deleted = await self.repository.delete(role_id)
         if deleted:
             await self.session.commit()

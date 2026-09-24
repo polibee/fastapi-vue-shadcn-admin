@@ -13,9 +13,12 @@ import type { ResourceManifest } from '@/core/resources/types'
 import { resourceAdapterRegistry } from '@/core/resources/adapters'
 import { validateResourceForm } from '@/core/resources/validation'
 import { currentUser, ensureCurrentUser } from '@/core/permissions'
+import { useRouter } from 'vue-router'
+import { adminPath } from '@/router/paths'
 
 const props = defineProps<{ resourceName: string; namespace: string }>()
 const { t } = useI18n()
+const router = useRouter()
 const manifest = ref<ResourceManifest | null>(null)
 const rows = ref<Array<Record<string, any>>>([])
 const total = ref(0)
@@ -74,7 +77,7 @@ async function remove(row: Record<string, any>): Promise<void> {
   if (!window.confirm(t(`${props.namespace}.deleteConfirm`, { name: row.name }))) return
   try { await adapter.value.remove(row.id); await load() } catch { error.value = true }
 }
-async function handleAction(row: Record<string, any>, action: string): Promise<void> { if (action === 'edit') openEdit(row); if (action === 'delete') await remove(row) }
+async function handleAction(row: Record<string, any>, action: string): Promise<void> { if (action === 'edit') void router.push(adminPath(`/${props.resourceName}/${row.id}`)); if (action === 'delete') await remove(row) }
 async function handleBulkAction(action: string): Promise<void> {
   if (action !== 'delete_selected' || selectedIds.value.length === 0) return
   if (!window.confirm(t(`${props.namespace}.bulkDeleteConfirm`, { count: selectedIds.value.length }))) return

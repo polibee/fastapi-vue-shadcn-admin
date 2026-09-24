@@ -27,6 +27,9 @@
     "copied": "Copied",
     "delete": "Delete",
     "repository": "GitHub repository",
+    "back": "Back",
+    "cancel": "Cancel",
+    "loading": "Loading…",
     "notFound": {
       "title": "Page not found",
       "description": "Check the address or start again from the admin entry."

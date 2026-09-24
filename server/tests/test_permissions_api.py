@@ -86,3 +86,38 @@ async def test_role_detail_returns_permissions_for_detail_page(session, admin_he
             assert response.json()["permissions"] == []
     finally:
         app.dependency_overrides.clear()
+
+
+@pytest.mark.asyncio
+async def test_role_update_is_atomic_and_protects_administrator(session, admin_headers):
+    from server.app.core.database.session import get_session
+    from server.app.main import app
+    from server.app.modules.roles.model import Role
+
+    role = Role(name="atomic-role", description="Before")
+    session.add(role)
+    await session.flush()
+
+    async def override_session():
+        yield session
+
+    app.dependency_overrides[get_session] = override_session
+    try:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+            response = await client.put(f"/api/v1/roles/{role.id}", json={"name": "atomic-role", "description": "After", "data_scope": "self", "permissions": ["roles.view"]}, headers=admin_headers)
+            assert response.status_code == 200
+            assert response.json()["description"] == "After"
+            assert response.json()["data_scope"] == "self"
+            assert response.json()["permissions"] == ["roles.view"]
+
+            protected = Role(name="administrator", is_system=True)
+            session.add(protected)
+            await session.flush()
+            rename = await client.put(f"/api/v1/roles/{protected.id}", json={"name": "renamed-administrator"}, headers=admin_headers)
+            assert rename.status_code == 409
+            assert rename.json()["code"] == "system_role_protected"
+            deletion = await client.delete(f"/api/v1/roles/{protected.id}", headers=admin_headers)
+            assert deletion.status_code == 409
+            assert deletion.json()["code"] == "system_role_protected"
+    finally:
+        app.dependency_overrides.clear()

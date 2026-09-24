@@ -55,7 +55,7 @@ DEPARTMENT_RESOURCE = ResourceDefinition(
         FieldDefinition("name", FieldType.text, "departments.name", required=True, nullable=False, searchable=True, sortable=True),
         FieldDefinition("code", FieldType.text, "departments.code", required=True, nullable=False, searchable=True, sortable=True),
         FieldDefinition("description", FieldType.text, "departments.description"),
-        FieldDefinition("is_active", FieldType.boolean, "departments.status", required=True, nullable=False, filterable=True),
+        FieldDefinition("is_active", FieldType.boolean, "departments.status", required=True, nullable=False, readonly=True, filterable=True),
     ),
     actions=(ActionDefinition("edit", "common.edit", "departments.update", "ghost", "edit"), ActionDefinition("delete", "common.delete", "departments.delete", "ghost", "delete")),
     bulk_actions=(BulkActionDefinition("delete_selected", "common.delete", "departments.delete", "delete"),),

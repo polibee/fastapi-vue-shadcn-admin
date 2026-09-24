@@ -88,6 +88,13 @@ Also connect:
 - Module Provider when lifecycle hooks are needed;
 - menu permission checks.
 
+Detail-page rules:
+
+- Keep `ResourceFeatures.detail` enabled to generate the generic detail route.
+- The manifest exposes `routes.detail` as `${routes.list}/:id`; the frontend loads the record through the resource adapter's `get(id)` method.
+- Use `GenericResourceDetailPage` for ordinary resources. A dedicated detail page is reserved for relation editors, multi-step workflows, or non-CRUD interactions.
+- Detail forms must be derived from `forms.edit.fields`; readonly fields must never be sent in update requests.
+
 ### 3.3 Frontend localization
 
 Every resource provides:

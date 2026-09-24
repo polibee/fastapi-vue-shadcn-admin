@@ -9,7 +9,7 @@ class ResourceNotFoundError(LookupError):
     pass
 
 
-RESOURCE_MANIFEST_CACHE_KEY = "admin:resource-manifests:v4"
+RESOURCE_MANIFEST_CACHE_KEY = "admin:resource-manifests:v5"
 
 
 def get_resource_manifest(name: str) -> dict[str, Any]:

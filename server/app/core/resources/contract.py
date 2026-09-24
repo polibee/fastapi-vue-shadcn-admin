@@ -83,7 +83,7 @@ def compile_manifest(resource: ResourceDefinition) -> dict[str, Any]:
         "name": resource.name,
         "label": resource.label,
         "labelPlural": resource.label_plural,
-        "routes": {"list": resource.route or f"/admin/{resource.name}"},
+        "routes": {"list": resource.route or f"/admin/{resource.name}", "detail": f"{resource.route or f'/admin/{resource.name}'}/:id"},
         "api": {"base": resource.api_base},
         "permissions": resource.permissions,
         "features": {("import" if key == "import_" else key): value for key, value in asdict(resource.features).items()},

@@ -5,6 +5,7 @@
     "title": "Departments",
     "description": "Manage reusable organizational departments.",
     "refresh": "Refresh",
+    "loadFailed": "Could not load departments.",
     "create": "Create department",
     "edit": "Edit department",
     "save": "Save",
@@ -26,6 +27,8 @@
     "nameRequired": "Name is required.",
     "codeRequired": "Code is required.",
     "createFailed": "Could not create the department.",
-    "updateFailed": "Could not update the department."
+    "updateFailed": "Could not update the department.",
+    "detailsTitle": "Department details",
+    "detailsDescription": "Maintain the department profile."
   }
 }

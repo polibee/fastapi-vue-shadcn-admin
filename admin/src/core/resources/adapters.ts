@@ -1,9 +1,10 @@
-import { bulkDeleteRoles, bulkDeleteUsers, createRole, createUser, deleteRole, deleteUser, fetchRoles, fetchUsers, updateRole } from '@/core/api/resources'
+import { bulkDeleteDepartments, bulkDeleteRoles, bulkDeleteUsers, createDepartment, createRole, createUser, deleteDepartment, deleteRole, deleteUser, fetchDepartment, fetchRole, fetchRoles, fetchUsers, fetchDepartments, updateDepartment, updateRole } from '@/core/api/resources'
 import type { RoleListResponse, RoleRead, UserListResponse, UserRead } from '@/core/api/generated/client'
 
 export type ResourceListOptions = { offset?: number; limit?: number; search?: string; isActive?: boolean; sortBy?: string; sortOrder?: 'asc' | 'desc' }
 export type ResourceAdapter<T, TCreate> = {
   list: (options?: ResourceListOptions) => Promise<{ items: T[]; total: number }>
+  get?: (id: number) => Promise<T>
   create: (input: TCreate) => Promise<T>
   update?: (id: number, input: TCreate) => Promise<T>
   remove: (id: number) => Promise<void>
@@ -35,21 +36,20 @@ resourceAdapterRegistry.register<UserRead, { username: string; email: string; pa
 
 resourceAdapterRegistry.register<RoleRead, { name: string; description: string }>('roles', {
   list: fetchRoles,
+  get: fetchRole,
   create: createRole,
   update: updateRole,
   remove: deleteRole,
   bulkRemove: bulkDeleteRoles,
 })
 
-export type RegisteredResourceResponse = UserListResponse | RoleListResponse
-
-
-
-import { fetchDepartments, createDepartment, updateDepartment, deleteDepartment, bulkDeleteDepartments } from '@/core/api/resources'
 resourceAdapterRegistry.register('departments', {
   list: fetchDepartments,
+  get: fetchDepartment,
   create: createDepartment,
   update: updateDepartment,
   remove: deleteDepartment,
   bulkRemove: bulkDeleteDepartments,
 })
+
+export type RegisteredResourceResponse = UserListResponse | RoleListResponse

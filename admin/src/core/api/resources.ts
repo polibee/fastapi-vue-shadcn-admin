@@ -12,6 +12,7 @@ import {
   deleteUserApiV1UsersUserIdDelete,
   listAuditLogsApiV1AuditLogsGet,
   listDepartmentsApiV1DepartmentsGet,
+  readDepartmentApiV1DepartmentsDepartmentIdGet,
   listRolesApiV1RolesGet,
   readRoleApiV1RolesRoleIdGet,
   listTaskEventsApiV1TasksTaskIdEventsGet,
@@ -74,9 +75,9 @@ export async function fetchRole(roleId: number): Promise<RoleRead> {
   return result as unknown as RoleRead
 }
 
-export async function updateRole(roleId: number, input: { name: string; description: string }): Promise<RoleRead> {
+export async function updateRole(roleId: number, input: { name: string; description: string; data_scope?: 'all' | 'self'; permissions?: string[] }): Promise<RoleRead> {
   client.setConfig({ baseUrl: '' })
-  const result = await updateRoleApiV1RolesRoleIdPut({ auth: getAccessToken() ?? undefined, path: { role_id: roleId }, body: { name: input.name, description: input.description || null }, responseStyle: 'data', throwOnError: true })
+  const result = await updateRoleApiV1RolesRoleIdPut({ auth: getAccessToken() ?? undefined, path: { role_id: roleId }, body: { name: input.name, description: input.description || null, data_scope: input.data_scope ?? 'all', permissions: input.permissions ?? [] }, responseStyle: 'data', throwOnError: true })
   return result as unknown as RoleRead
 }
 
@@ -161,6 +162,7 @@ export async function retryTask(taskId: string): Promise<TaskItem> {
 export type DepartmentRead = { id: number; name: string; code: string; description: string | null; is_active: boolean; created_at: string }
 export type DepartmentInput = { name: string; code: string; description?: string | null; is_active?: boolean }
 export type DepartmentListResponse = { items: DepartmentRead[]; total: number; offset: number; limit: number }
+export async function fetchDepartment(id: number): Promise<DepartmentRead> { client.setConfig({ baseUrl: '' }); const result = await readDepartmentApiV1DepartmentsDepartmentIdGet({ auth: getAccessToken() ?? undefined, path: { department_id: id }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentRead }
 export async function fetchDepartments(options: { offset?: number; limit?: number; search?: string; isActive?: boolean; sortBy?: string; sortOrder?: 'asc' | 'desc' } = {}): Promise<DepartmentListResponse> { client.setConfig({ baseUrl: '' }); const result = await listDepartmentsApiV1DepartmentsGet({ auth: getAccessToken() ?? undefined, query: { offset: options.offset ?? 0, limit: options.limit ?? 20, search: options.search || undefined, is_active: options.isActive, sort_by: options.sortBy as 'id' | 'name' | 'code' | undefined, sort_order: options.sortOrder }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentListResponse }
 export async function createDepartment(input: DepartmentInput): Promise<DepartmentRead> { client.setConfig({ baseUrl: '' }); const result = await createDepartmentApiV1DepartmentsPost({ auth: getAccessToken() ?? undefined, body: { name: input.name, code: input.code, description: input.description || null, is_active: input.is_active ?? true }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentRead }
 export async function updateDepartment(id: number, input: DepartmentInput): Promise<DepartmentRead> { client.setConfig({ baseUrl: '' }); const result = await updateDepartmentApiV1DepartmentsDepartmentIdPut({ auth: getAccessToken() ?? undefined, path: { department_id: id }, body: { name: input.name, code: input.code, description: input.description || null, is_active: input.is_active ?? true }, responseStyle: 'data', throwOnError: true }); return result as unknown as DepartmentRead }

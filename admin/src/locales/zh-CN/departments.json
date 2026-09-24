@@ -5,6 +5,7 @@
     "title": "部门管理",
     "description": "管理可复用的组织部门。",
     "refresh": "刷新",
+    "loadFailed": "部门加载失败。",
     "create": "新建部门",
     "edit": "编辑部门",
     "save": "保存",
@@ -26,6 +27,8 @@
     "nameRequired": "请输入名称。",
     "codeRequired": "请输入编码。",
     "createFailed": "创建部门失败。",
-    "updateFailed": "更新部门失败。"
+    "updateFailed": "更新部门失败。",
+    "detailsTitle": "部门详情",
+    "detailsDescription": "维护部门基本信息。"
   }
 }

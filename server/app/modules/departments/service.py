@@ -8,6 +8,7 @@ class DuplicateDepartmentError(Exception): code = "department_already_exists"
 class DepartmentService:
     def __init__(self, session: AsyncSession): self.repository = DepartmentRepository(session); self.session = session
     async def list(self, *args, **kwargs): return await self.repository.list(*args, **kwargs)
+    async def get(self, department_id): return await self.repository.get_by_id(department_id)
     async def create(self, **values):
         if await self.repository.get_by_code(values["code"]): raise DuplicateDepartmentError
         try:

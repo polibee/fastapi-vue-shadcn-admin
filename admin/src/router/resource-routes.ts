@@ -2,10 +2,12 @@ import type { RouteRecordRaw } from 'vue-router'
 import type { Component } from 'vue'
 import RolesPage from '@/components/admin/RolesPage.vue'
 import RoleDetailPage from '@/components/admin/RoleDetailPage.vue'
+import GenericResourceDetailPage from '@/components/admin/GenericResourceDetailPage.vue'
 import UsersPage from '@/components/admin/UsersPage.vue'
 import GenericResourcePage from '@/components/admin/GenericResourcePage.vue'
 import type { LocaleNamespace } from '@/locales'
 import { adminPath } from './paths'
+import { detailRoutePath, matchesResourceRoute } from './resource-route-utils'
 
 export type ResourceRouteRegistration = {
   name: string
@@ -30,12 +32,21 @@ export const resourceRoutes: RouteRecordRaw[] = resourceRouteRegistry.map((resou
 }))
 
 resourceRoutes.push({
-  path: adminPath('/roles/:roleId'),
+  path: adminPath('/roles/:id'),
   component: RoleDetailPage,
   meta: { requiresAuth: true, permission: 'roles.view', resource: 'roles' },
 })
 
+for (const resource of resourceRouteRegistry.filter((item) => item.name !== 'roles')) {
+  resourceRoutes.push({
+    path: detailRoutePath(resource.path),
+    component: GenericResourceDetailPage,
+    props: { resourceName: resource.name, namespace: resource.name },
+    meta: { requiresAuth: true, permission: resource.permission, resource: resource.name },
+  })
+}
+
 export function namespacesForResourceRoute(path: string): LocaleNamespace[] | undefined {
-  return resourceRouteRegistry.find((resource) => resource.path === path || (resource.name === 'roles' && path.startsWith(`${resource.path}/`)))?.namespaces
+  return resourceRouteRegistry.find((resource) => matchesResourceRoute(resource.path, path))?.namespaces
 }
 
