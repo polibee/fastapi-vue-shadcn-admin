@@ -15,6 +15,14 @@ Recommended stack:
 
 Do not replace the agreed PostgreSQL runtime database with SQLite.
 
+## 1.1 Frontend and backend URL boundaries
+
+- The admin frontend always uses `/admin/*`, such as `/admin/users` and `/admin/departments`.
+- The root `/` is reserved for future C-end pages; the current root entry explicitly opens `/admin/`.
+- Backend APIs remain under `/api/v1/*`, such as `/api/v1/departments`, with no `/admin` API prefix.
+- Scalar remains at `/docs/scalar` and OpenAPI remains at `/openapi.json`.
+- Legacy `/users`, `/roles`, `/departments`, and `/settings` paths have no compatibility redirects and resolve to frontend not-found behavior.
+
 ## 2. Pre-flight checklist for AI agents
 
 ```text
@@ -61,7 +69,7 @@ ResourceDefinition(
     label="departments.label",
     label_plural="departments.labelPlural",
     api_base="/api/v1/departments",
-    route="/departments",
+    route="/admin/departments",
     permissions={
         "view": "departments.view",
         "create": "departments.create",

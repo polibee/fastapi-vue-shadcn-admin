@@ -43,6 +43,15 @@ pnpm dev -- --host 0.0.0.0
 
 The runtime database is PostgreSQL with Redis; SQLite is not used as the application database. The development login page provides one-click demo credentials.
 
+## URL boundaries
+
+- Admin frontend: `http://127.0.0.1:4181/admin/`
+- Future C-end frontend: `/` and other root-level routes
+- Backend API: `/api/v1/*`
+- Scalar API documentation: `/docs/scalar`
+
+The old root admin paths such as `/users`, `/roles`, and `/settings` are intentionally invalid and are not redirected.
+
 ## Integration documentation
 
 - [AI-friendly integration guide](docs/integration-development-guide.md)

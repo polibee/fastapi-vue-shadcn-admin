@@ -43,6 +43,15 @@ pnpm dev -- --host 0.0.0.0
 
 使用项目配置的 PostgreSQL 和 Redis，不使用 SQLite 作为运行数据库。开发环境演示账号可在登录页一键填充。
 
+## URL 路由边界
+
+- 后台前端：`http://127.0.0.1:4181/admin/`
+- 未来 C 端前端：`/` 及其他根路径
+- 后端 API：`/api/v1/*`
+- Scalar 接口文档：`/docs/scalar`
+
+旧的 `/users`、`/roles`、`/settings` 等后台根路径已明确移除，不会再跳转到后台页面。
+
 ## 对接开发文档
 
 - [AI 友好对接开发指南](docs/对接开发指南.md)
