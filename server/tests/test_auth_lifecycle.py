@@ -20,6 +20,18 @@ class FakeTokenStore:
         return token_id in self.revoked
 
 
+class FakeRedis:
+    def __init__(self):
+        self.values = {}
+
+    async def incr(self, key):
+        self.values[key] = self.values.get(key, 0) + 1
+        return self.values[key]
+
+    async def expire(self, key, ttl):
+        return True
+
+
 @pytest.mark.asyncio
 async def test_refresh_token_can_be_rotated_and_revoked(monkeypatch) -> None:
     store = FakeTokenStore()
@@ -54,6 +66,7 @@ async def test_token_store_does_not_fail_open_when_redis_is_missing(monkeypatch)
 async def test_login_returns_refresh_token_and_refresh_endpoint_rotates(session, monkeypatch):
     store = FakeTokenStore()
     monkeypatch.setattr("server.app.core.auth_tokens.token_store", store)
+    monkeypatch.setattr("server.app.modules.auth.router.redis_client", FakeRedis())
     session.add(User(username="admin", email="admin@example.test", password_hash=hash_password("secret")))
     await session.commit()
 
