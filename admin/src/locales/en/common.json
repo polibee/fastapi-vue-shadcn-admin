@@ -21,6 +21,10 @@
     "next": "Next",
     "edit": "Edit",
     "delete": "Delete",
-    "repository": "GitHub repository"
+    "repository": "GitHub repository",
+    "notFound": {
+      "title": "Page not found",
+      "description": "Check the address or start again from the admin entry."
+    }
   }
 }

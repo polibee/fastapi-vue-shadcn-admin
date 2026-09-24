@@ -14,3 +14,7 @@ export const adminRoutePaths = [
   '/admin/openapi-browser',
   '/admin/permissions',
 ] as const
+
+export const LEGACY_ADMIN_PATHS = ['/login', '/users', '/roles', '/permissions', '/departments', '/tasks', '/audit', '/settings'] as const
+export const ADMIN_ENTRY_PATH = '/'
+export const ADMIN_CATCH_ALL_PATH = '/:pathMatch(.*)*'

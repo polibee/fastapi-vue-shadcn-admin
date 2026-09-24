@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { adminRoutePaths } from './route-paths'
+import { ADMIN_CATCH_ALL_PATH, ADMIN_ENTRY_PATH, LEGACY_ADMIN_PATHS, adminRoutePaths } from './route-paths'
 
 describe('admin route table', () => {
   it('registers only the admin namespace for admin pages', () => {
@@ -22,6 +22,12 @@ describe('admin route table', () => {
     expect(adminRoutePaths).not.toContain('/login')
     expect(adminRoutePaths).not.toContain('/users')
     expect(adminRoutePaths).not.toContain('/roles')
+  })
+
+  it('keeps legacy root admin paths outside the route table', () => {
+    expect(ADMIN_ENTRY_PATH).toBe('/')
+    expect(ADMIN_CATCH_ALL_PATH).toBe('/:pathMatch(.*)*')
+    for (const path of LEGACY_ADMIN_PATHS) expect(adminRoutePaths).not.toContain(path)
   })
 
 })

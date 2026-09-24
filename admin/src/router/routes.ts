@@ -12,6 +12,7 @@ import OpenApiExplorerPage from '@/components/admin/OpenApiExplorerPage.vue'
 import PermissionsPage from '@/components/admin/PermissionsPage.vue'
 import { resourceRoutes } from './resource-routes'
 import { adminRoutePaths } from './route-paths'
+import NotFoundPage from '@/components/NotFoundPage.vue'
 
 export const adminRouteRecords: RouteRecordRaw[] = [
   { path: '/admin/login', component: LoginPage, meta: { public: true } },
@@ -26,6 +27,8 @@ export const adminRouteRecords: RouteRecordRaw[] = [
   { path: '/admin/modules', component: ModuleRegistryPage, meta: { requiresAuth: true, permission: 'users.view' } },
   { path: '/admin/openapi-browser', component: OpenApiExplorerPage, meta: { requiresAuth: true, permission: 'users.view' } },
   { path: '/admin/permissions', component: PermissionsPage, meta: { requiresAuth: true, permission: 'roles.view' } },
+  { path: '/', redirect: '/admin/' },
+  { path: '/:pathMatch(.*)*', component: NotFoundPage, meta: { public: true } },
 ]
 
 export { adminRoutePaths }

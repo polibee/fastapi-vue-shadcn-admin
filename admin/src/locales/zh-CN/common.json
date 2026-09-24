@@ -21,6 +21,10 @@
     "next": "Next",
     "edit": "Edit",
     "delete": "Delete",
-    "repository": "GitHub 仓库"
+    "repository": "GitHub 仓库",
+    "notFound": {
+      "title": "页面不存在",
+      "description": "请检查地址，或从后台入口重新开始。"
+    }
   }
 }
