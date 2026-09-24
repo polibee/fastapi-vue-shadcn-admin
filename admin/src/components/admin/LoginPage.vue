@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { ApiError, demoCredentials, login } from '@/core/api/auth'
 import { setLocale } from '@/locales'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { adminPath, safeAdminRedirect } from '@/router/paths'
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -49,7 +50,7 @@ async function submit() {
   loading.value = true
   try {
     await login({ username: username.value, password: password.value })
-    await router.replace(typeof route.query.redirect === 'string' ? route.query.redirect : '/')
+    await router.replace(safeAdminRedirect(typeof route.query.redirect === 'string' ? route.query.redirect : adminPath('/')))
   } catch (error) {
     if (error instanceof ApiError) {
       errorCode.value = error.code

@@ -18,6 +18,7 @@ import { loadResourceIndex } from '@/core/resources'
 import type { ResourceManifest } from '@/core/resources/types'
 import { buildNavigationRegistry, type NavigationIcon } from '@/core/navigation/registry'
 import GlobalSearch from './GlobalSearch.vue'
+import { adminPath } from '@/router/paths'
 
 const props = withDefaults(defineProps<{ systemStatus?: HealthStatus }>(), { systemStatus: 'unavailable' })
 
@@ -58,7 +59,7 @@ async function signOut() {
     await revokeRefreshToken()
   } finally {
     clearCurrentUser()
-    router.replace('/login')
+    router.replace(adminPath('/login'))
   }
 }
 
@@ -151,7 +152,7 @@ const navigation = computed<{ workspace: NavigationItem[]; manage: NavigationIte
               <DropdownMenuContent align="end" side="top" class="w-56">
                 <DropdownMenuLabel>{{ t('common.admin') }}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem @select="router.push('/settings')">{{ t('nav.settings') }}</DropdownMenuItem>
+                <DropdownMenuItem @select="router.push(adminPath('/settings'))">{{ t('nav.settings') }}</DropdownMenuItem>
                 <DropdownMenuItem @select="signOut">{{ t('auth.signOut') }}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
