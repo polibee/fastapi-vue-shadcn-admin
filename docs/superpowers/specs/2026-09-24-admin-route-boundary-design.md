@@ -77,22 +77,22 @@ The following remain independent public/tooling endpoints:
 
 They are not frontend admin routes and must not be moved beneath `/admin`.
 
-## 4. Compatibility policy
+## 4. Legacy route policy
 
-Existing root admin links may be supported temporarily through explicit redirects:
+There will be no compatibility redirects for old root-level admin routes. After migration, these paths are not valid admin URLs and must not be registered as aliases:
 
 ```text
-/login  -> /admin/login
-/users  -> /admin/users
-/roles  -> /admin/roles
-/permissions -> /admin/permissions
-/departments -> /admin/departments
-/tasks  -> /admin/tasks
-/audit  -> /admin/audit
-/settings -> /admin/settings
+/login
+/users
+/roles
+/permissions
+/departments
+/tasks
+/audit
+/settings
 ```
 
-The `/` entry redirect is handled separately from legacy admin aliases. The other compatibility redirects are migration aids only and will be retained until the first C-end route release, then removed after a documented deprecation window. New navigation, generated resource routes, auth redirects, documentation, screenshots, and tests must use `/admin/...`. All aliases must be isolated in one compatibility layer rather than spread across page components.
+They must resolve to the frontend's normal not-found behavior (or the deployment's standard 404 response), never to an admin page. New navigation, generated resource routes, auth redirects, documentation, screenshots, and tests must use `/admin/...`. This deliberate break prevents stale links from preserving the route collision that this migration is intended to remove.
 
 ## 5. Frontend architecture
 
@@ -163,7 +163,7 @@ Update both integration guides, project constraints where needed, startup docume
 - Scalar remains `/docs/scalar`;
 - new Resource Contracts use `/admin/<resource>` for UI routes and `/api/v1/<resource>` for API routes.
 
-Examples and screenshots should use the new admin URLs. Existing compatibility redirects may be documented as migration behavior, not as preferred URLs.
+Examples and screenshots must use the new admin URLs. Legacy root admin paths must be documented as invalid after migration, not as migration aliases.
 
 ## 10. Testing requirements
 
@@ -174,7 +174,7 @@ The implementation must add or update tests for:
 - unauthenticated `/admin/users` redirecting to `/admin/login` with a safe encoded redirect;
 - successful login returning to the requested `/admin/...` route;
 - permission denial staying inside the admin route tree;
-- compatibility redirects for old root admin links;
+- old root admin links being rejected instead of redirected;
 - root namespace not being mistaken for an admin child route;
 - Resource Contract UI route/API base separation;
 - direct navigation and refresh behavior for nested admin paths;
@@ -189,7 +189,7 @@ Existing API tests, generated SDK checks, type checks, frontend tests, and front
 - No authentication mechanism replacement.
 - No unrelated visual redesign.
 - No second frontend UI framework.
-- No deletion of compatibility redirects before the first C-end route release and its documented deprecation window.
+- No reintroduction of root-level admin aliases for compatibility.
 
 ## 12. Acceptance criteria
 
@@ -200,5 +200,5 @@ The design is implemented when:
 3. Backend APIs remain under `/api/v1/...` and generated SDK output remains valid.
 4. Unauthenticated and unauthorized flows stay inside the admin route boundary.
 5. Direct browser navigation to nested admin routes works in development and production-style static serving.
-6. Old root admin links have deterministic compatibility behavior.
+6. Old root admin links are deterministically rejected and never redirected.
 7. Documentation and tests describe and enforce the same route model.
