@@ -11,4 +11,9 @@ describe('development API proxy', () => {
     const proxy = config.server?.proxy as Record<string, unknown>
     expect(proxy['/docs']).toBe('http://127.0.0.1:8012')
   })
+
+  it('keeps every backend entry point on the same configurable API target', () => {
+    const proxy = config.server?.proxy as Record<string, unknown>
+    expect(new Set(Object.values(proxy))).toEqual(new Set(['http://127.0.0.1:8012']))
+  })
 })
